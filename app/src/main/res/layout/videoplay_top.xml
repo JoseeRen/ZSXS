@@ -12,7 +12,8 @@
     android:paddingTop="8dp">
 
     <ImageButton
-        android:id="@+id/ib_videoplay_top_back"
+        android:id="@id/back"
+        android:onClick="back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/ic_back" />
