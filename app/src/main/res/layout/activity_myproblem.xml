@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView style="@style/usercenter_header_ivback"
+            android:id="@+id/back"/>
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="我的答疑" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_myproblem"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:padding="5dp"
+        >
+        <RadioButton
+            android:checked="true"
+            android:gravity="center"
+            android:text="视频"
+            android:id="@+id/myproblem_rb_shipin"
+            android:padding="5dp"
+            android:textColor="@drawable/text_color"
+            android:button="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/search_rb_selector"/>
+        <RadioButton
+            android:gravity="center"
+            android:id="@+id/myproblem_rb_yinpin"
+            android:padding="5dp"
+            android:button="@android:color/transparent"
+            android:text="音频"
+            android:textColor="@drawable/text_color"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:gravity="center"
+            android:text="读书"
+            android:id="@+id/myproblem_rb_dushu"
+            android:padding="5dp"
+            android:button="@android:color/transparent"
+            android:textColor="@drawable/text_color"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:gravity="center"
+            android:text="文章"
+            android:id="@+id/myproblem_rb_wenzhang"
+            android:padding="5dp"
+            android:button="@android:color/transparent"
+            android:textColor="@drawable/text_color"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <com.ryw.zsxs.view.MyViewpager
+        android:id="@+id/myproblem_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.ryw.zsxs.view.MyViewpager>
+
+</LinearLayout>

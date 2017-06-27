@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 个人信息布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!-- S头布局 -->
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/iv_userloginmessage_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="个人信息" />
+    </LinearLayout>
+    <!-- E头布局 -->
+
+    <include layout="@layout/item_line" />
+
+    <!-- S头像 -->
+    <LinearLayout
+        android:id="@+id/ll_userpic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="头像"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/iv_userpic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/center_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="设置"
+            android:textColor="@color/leftTextColorNormal"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!-- E头像 -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@mipmap/base_horizontal_line" />
+
+    <!-- S昵称 -->
+    <LinearLayout
+        android:id="@+id/ll_usernickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="昵称"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_usernickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/goto_right"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="yqdddddddd"
+            android:textColor="@color/leftTextColorNormal"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!-- E昵称 -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@mipmap/base_horizontal_line" />
+
+    <!-- S账号 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="账号"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_usernum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="18733513882"
+            android:textColor="@color/leftTextColorNormal"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!-- E账号 -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@mipmap/base_horizontal_line" />
+
+    <!-- S性别 -->
+    <LinearLayout
+        android:id="@+id/ll_usersex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="性别"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_usersex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/goto_right"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="男"
+            android:textColor="@color/leftTextColorNormal"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!-- E性别 -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@mipmap/base_horizontal_line" />
+
+    <!-- S地址 -->
+    <LinearLayout
+        android:id="@+id/ll_useraddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="地址"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_useraddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/goto_right"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="河北"
+            android:textColor="@color/leftTextColorNormal"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!-- E地址 -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@mipmap/base_horizontal_line" />
+
+    <!-- S邮箱 -->
+    <LinearLayout
+        android:id="@+id/ll_useremail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="设置邮箱"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_useremail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/goto_right"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="email"
+            android:textColor="@color/leftTextColorNormal"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!-- E邮箱 -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@mipmap/base_horizontal_line" />
+
+    <!-- S修改密码 -->
+    <LinearLayout
+        android:id="@+id/ll_userupdatepsw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="修改登录密码"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/goto_right" />
+    </LinearLayout>
+    <!-- E修改密码 -->
+</LinearLayout>

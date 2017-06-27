@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 学识收支布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/iv_userxueshi_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="学识收支记录" />
+    </LinearLayout>
+</LinearLayout>

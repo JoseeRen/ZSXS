@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-6-8 下午9:53
+  ~ FileName: layout_main_footer.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutFooter"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f5f5f5"
+    >
+    <!--android:background="@color/main_footer_bg"-->
+
+    <View
+        android:id="@+id/viewSplit"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EDEDED" />
+
+
+    <RadioGroup
+        android:id="@+id/group"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/foot_bar_home"
+            android:text="首页"
+
+            android:checked="true"
+            android:drawableTop="@drawable/rb_foot_bar_home_bg"
+
+           style="@style/footbar_rb_style"/>
+
+        <RadioButton
+            android:id="@+id/foot_bar_xuanke"
+            style="@style/footbar_rb_style"
+
+            android:drawableTop="@drawable/rb_foot_bar_xuanke_bg"
+
+            android:text="选课" />
+
+        <RadioButton
+            android:id="@+id/foot_bar_myclass"
+            style="@style/footbar_rb_style"
+            android:drawableTop="@drawable/rb_foot_bar_myclass_bg"
+
+            android:text="我的课" />
+
+        <RadioButton
+            android:id="@+id/foot_bar_user"
+            style="@style/footbar_rb_style"
+            android:drawableTop="@drawable/rb_foot_bar_user_bg"
+
+            android:text="个人中心" />
+    </RadioGroup>
+
+
+</RelativeLayout>

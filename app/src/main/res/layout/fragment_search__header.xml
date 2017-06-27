@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="#315031"
+    android:layout_height="50dp">
+
+    <ImageView
+        android:id="@+id/search_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back"
+        android:layout_gravity="center" />
+
+    <EditText
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/search_back_list"
+        android:layout_gravity="center"
+        android:hint="请输入您想搜索的内容"
+        android:paddingLeft="15dp"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="搜索"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="#fff" />
+</LinearLayout>

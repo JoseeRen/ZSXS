@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/home_view_item_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/guodu_icon" />
+
+    <TextView
+        android:id="@+id/home_view_item_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:lines="1"
+        android:layout_below="@id/home_view_item_iv" />
+
+</RelativeLayout>

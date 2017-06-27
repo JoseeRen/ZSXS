@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Create on 2017-6-9 上午10:03
+  ~ FileName: rb_foot_bar_user_bg.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<!--
+  ~ Create on 2017-6-9 上午10:01
+  ~ FileName: rb_foot_bar_xuanke_bg.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:state_enabled="true" android:state_pressed="false"
+        android:drawable="@drawable/rb_my_center_normal"/>
+    <item android:state_enabled="true" android:state_pressed="true" android:drawable="@drawable/rb_my_center_focus"/>
+    <item android:state_enabled="true" android:state_checked="true" android:drawable="@drawable/rb_my_center_focus"/>
+    <item android:drawable="@drawable/rb_my_center_normal"/>
+</selector>

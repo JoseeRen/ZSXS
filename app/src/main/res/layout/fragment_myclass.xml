@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+<include android:id="@+id/a"
+    layout="@layout/title_three"/>
+<RelativeLayout
+    android:id="@+id/r"
+    android:background="@color/green_text"
+    android:layout_below="@id/a"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+    <ImageView
+        android:padding="5dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/circleImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/guodu_icon"
+      />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/circleImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_mine"
+            android:layout_marginTop="40dp"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#fff"
+            android:text="姓名"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioGroup
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/rg_mine"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rb_hasbuy"
+                android:padding="5dp"
+                android:background="@drawable/rb_hasbuy"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/rb_recent"
+                android:padding="5dp"
+                android:background="@drawable/rb_recent"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/rb_offine"
+                android:padding="5dp"
+                android:background="@drawable/rb_offine"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+    </LinearLayout>
+</RelativeLayout>
+<FrameLayout
+    android:id="@+id/fl_mine"
+    android:layout_below="@id/r"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+
+
+</RelativeLayout>

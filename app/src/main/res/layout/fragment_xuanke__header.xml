@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#315031"
+    android:orientation="vertical"
+    android:paddingBottom="5dp">
+
+    <RelativeLayout
+        android:id="@+id/layoutFooter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="视频中心"
+            android:id="@+id/tv_title"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+        <ImageButton
+            android:id="@+id/ib_right_top_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
+            android:background="@mipmap/right_top_search" />
+
+        <ImageButton
+            android:id="@+id/ib_right_top_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ib_right_top_search"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@mipmap/right_top_more" />
+
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_xuanke_topmenu"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/layoutFooter"
+        android:orientation="horizontal"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp">
+
+        <RadioButton
+            android:id="@+id/rb_xuanke_exam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rb_xuanke_exam_bg"
+            android:button="@android:color/transparent" />
+
+        <RadioButton
+            android:id="@+id/rb_xuanke_work"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rb_xuanke_work_bg"
+            android:button="@android:color/transparent" />
+
+        <RadioButton
+            android:id="@+id/rb_xuanke_life"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rb_xuanke_life_bg"
+            android:button="@android:color/transparent" />
+    </RadioGroup>
+</LinearLayout>

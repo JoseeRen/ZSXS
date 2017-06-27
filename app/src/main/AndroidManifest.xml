@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ryw.zsxs">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.XuanKeDetailActivity"/>
+        <activity android:name=".activity.GuideActivity"/>
+
+        <!--中仕个人中心 个人信息页面-->
+        <activity android:name=".activity.UserLoginMessageActivity"/>
+        <!--中仕个人中心 积分收支记录页面-->
+        <activity android:name=".activity.UserJifenActivity"/>
+        <!--中仕个人中心 学币收支记录页面-->
+        <activity android:name=".activity.UserXuebiActivity"/>
+        <!--中仕个人中心 学识收支记录页面-->
+        <activity android:name=".activity.UserXueshiActivity"/>
+        <!--中仕个人中心 消息中心-->
+        <activity android:name=".activity.UserMessageActivity"/>
+        <!--中仕个人中心 推荐有礼-->
+        <activity android:name=".activity.UserShareActivity"/>
+        <!--中仕个人中心 账户中心-->
+        <activity android:name=".activity.UserAccountActivity"/>
+        <!--个人信息页面 昵称页面-->
+
+        <activity android:name=".activity.MyCollect"/>
+        <activity android:name=".activity.MyNotes"/>
+        <activity android:name=".activity.MyProblem"/>
+        <activity android:name=".activity.CursorZhengDing"/>
+        <activity android:name=".activity.MyJiFen"/>
+        <activity android:name=".activity.MyTest"/>
+        <activity android:name=".activity.ZuZhiAndSchool"/>
+        <activity android:name=".activity.Help"/>
+        <activity android:name=".activity.Setting"/>
+        <activity android:name=".activity.AboutZX" />
+
+
+        <activity android:name=".activity.UserNicknameActivity"/>
+        <!--个人信息页面 地址页面-->
+        <activity android:name=".activity.UserAddressActivity"/>
+        <!--个人信息页面 邮箱-->
+        <activity android:name=".activity.UserEmailActivity"/>
+        <!--个人信息页面 修改密码页面-->
+        <activity android:name=".activity.UserUpdatepswActivity"/>
+
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.BackpasswordActivity" />
+        <activity android:name=".activity.LoginAcitvity" />
+
+
+        <!--2017跳转页面-->
+        <activity android:name=".activity.ksdrActivity" />
+        <!--搜索页面-->
+        <activity android:name=".activity.SearchActivity" />
+        <!--视频播放-->
+        <activity android:name=".activity.VideoPlayActivity" />
+        <!--音频中心页面-->
+        <activity android:name=".activity.AudioCenterDetailActivity" />
+        <!--文章详情页面-->
+        <activity android:name=".activity.ArticleDetailActivity" />
+        <!--读书详情-->
+        <activity android:name=".activity.BookDetailActivity" />
+
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+    </application>
+
+</manifest>

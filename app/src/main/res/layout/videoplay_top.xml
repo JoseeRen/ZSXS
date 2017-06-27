@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?><!--视频播放页面的头部-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_videoplay_top"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/videoplaybg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="8dp">
+
+    <ImageButton
+        android:id="@+id/ib_videoplay_top_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_back" />
+
+    <TextView
+
+        android:id="@+id/tv_videoplay_top_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:text="视频名称"
+        android:textColor="#fff" />
+
+    <ImageButton
+        android:id="@+id/ib_videoplay_top_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@mipmap/ic_collect_uncheck" />
+
+    <ImageButton
+        android:id="@+id/ib_videoplay_top_share"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:background="@mipmap/ic_share" />
+
+    <ImageButton
+        android:id="@+id/ib_videoplay_top_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:background="@mipmap/ic_more" />
+
+    <LinearLayout
+        android:id="@+id/ll_videoplay_top_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_videolpay_batter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/stat_sys_battery_28" />
+
+        <TextView
+            android:id="@+id/tv_videoplay_nowtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:12"
+
+            android:textColor="#fff" />
+    </LinearLayout>
+</LinearLayout>

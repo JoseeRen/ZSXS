@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-6-9 上午10:54
+  ~ FileName: fragment_home_header.xml
+  ~ Author: 于振伟
+  ~ 内容：首页头布局的创建
+  -->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutFooter"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#315031"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    >
+    <!--android:background="@color/main_footer_bg"-->
+    <ImageView
+       android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_weight="0.6"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@mipmap/main_logo"
+        android:layout_gravity="center"
+        />
+
+    <ImageView
+       android:padding="2dp"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/main_search"
+            android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        <ImageView
+
+
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/sign"
+            android:layout_gravity="center"/>
+
+        <ImageView
+
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/scan"
+            android:layout_gravity="center"/>
+        </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+
+    android:background="#6c000000"
+    android:orientation="vertical">
+
+    <GridView
+        android:id="@+id/rv_xuankedetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="8dp"
+        android:layout_below="@id/rg_xuankedetail_top"
+        android:background="#ECECEA"
+        android:numColumns="4"
+        android:padding="8dp"></GridView>
+
+</LinearLayout>

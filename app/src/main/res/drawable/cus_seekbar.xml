@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!--自定义进度条的背景-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--进度条的背景-->
+    <item android:id="@android:id/background">
+        <shape>
+            <solid android:color="@color/white_text" />
+        </shape>
+    </item>
+    <!--缓冲进度的样式-->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="5dip" />
+                <gradient
+                    android:angle="270"
+                    android:centerColor="#80ffb600"
+                    android:centerY="0.75"
+                    android:endColor="#a0ffcb00"
+                    android:startColor="#80ffd300" />
+            </shape>
+        </clip>
+    </item>
+    <!--进度条的样式-->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <solid android:color="@color/videoplayprogress" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

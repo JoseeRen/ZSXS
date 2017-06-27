@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-6-9 上午10:54
+  ~ FileName: fragment_home.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/fragment_xuanke__header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_layout"
+        android:orientation="horizontal">
+
+        <q.rorbin.verticaltablayout.VerticalTabLayout
+            android:id="@+id/left_tab_layout"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/xuanke_left_selector"
+            app:indicator_color="#FFFFFF"
+            app:indicator_gravity="fill"
+            app:tab_height="50dp"
+            android:focusable="false"
+
+
+            app:tab_mode="scrollable" />
+
+        <GridView
+            android:id="@+id/gv_courslist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+
+            android:horizontalSpacing="3dp"
+            android:numColumns="3"
+            android:padding="10dp"
+
+            android:verticalSpacing="8dp">
+
+
+        </GridView>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 账户中心 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/iv_useraccount_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="账户中心"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </LinearLayout>
+</LinearLayout>

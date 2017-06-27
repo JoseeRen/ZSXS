@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_item"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:background="@drawable/btn_shape"
+    android:focusable="false"
+    android:gravity="center"
+    android:textColor="#ff137213"
+    android:text="文字"
+    android:textSize="14sp"></Button>
