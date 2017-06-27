@@ -122,10 +122,10 @@ public class Home_Fragment extends BaseFragment {
         fragmentHomeVp.setOnPageChangeListener(new HomeViewpagerChangLister());
         //轮播图的点
         //密度比
-        float density = getContext().getResources().getDisplayMetrics().density;
+        float density =mContext.getResources().getDisplayMetrics().density;
 
         for (int i = 0; i < slideslist.size(); i++) {
-            ImageView iv_point = new ImageView(getContext());
+            ImageView iv_point = new ImageView(mContext);
             iv_point.setEnabled(false);
             iv_point.setBackgroundResource(R.drawable.viewpager_point_select);
             //宽高
@@ -222,7 +222,7 @@ public class Home_Fragment extends BaseFragment {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView iv = new ImageView(getContext());
+            ImageView iv = new ImageView(mContext);
             //显示默认图片
             iv.setImageResource(R.mipmap.huandengpian);
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
