@@ -1,1 +1,1 @@
-include ':app', ':pulltorefresh_library', ':vitamio'
+include ':app', ':vitamio', ':pulltorefresh_library'
