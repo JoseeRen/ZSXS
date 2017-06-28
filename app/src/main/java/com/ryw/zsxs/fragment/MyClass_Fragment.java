@@ -1,12 +1,12 @@
-
-
 package com.ryw.zsxs.fragment;
 
+import android.app.ActivityManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -25,20 +26,28 @@ import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.bean.UserInfoBean;
+import com.ryw.zsxs.db.Db;
+import com.ryw.zsxs.db.Kc_Course;
 import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
 import com.ryw.zsxs.view.MyViewpager;
 
+import org.xutils.DbManager;
 import org.xutils.common.Callback;
+import org.xutils.ex.DbException;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-
+import butterknife.Unbinder;
 
 
 /**
@@ -61,6 +70,11 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     RadioGroup rgMine;
     @BindView(R.id.fl_mine)
     FrameLayout flMine;
+    @BindView(R.id.title_delete)
+    Button titleDelete;
+    @BindView(R.id.r)
+    RelativeLayout r;
+    Unbinder unbinder;
     private RadioButton bt_wenzhang;
     private RadioGroup rg_mine_item;
     private RadioButton bt_shipin;
@@ -70,11 +84,15 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     private List<RadioButton> list;
     private RadioButton bt_yinpin;
     private RadioButton bt_dushu;
-    private int kc_types=0;
+    private int kc_types = 0;
 
     public static MyClass_Fragment instance = null;
     private ImageOptions options;
-    //private MyListViewAdapter listAdapter;
+    private HasbuyListViewAdapter hasbuyListViewAdapter;
+    private RecentListViewAdapter recentListViewAdapter;
+    private OffineListViewAdapter offineListViewAdapter;
+    private TextView tv_vp_item;
+    private List<Kc_Course> dbAll;
 
     public static MyClass_Fragment getInstance() {
         if (instance == null) {
@@ -92,8 +110,8 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
 
     private void initLogin() {
         boolean isLogin = SpUtils.getBoolean(mContext, Constant.IS_LOGIN);
-        if (!isLogin){
-            startActivity(LoginAcitvity.class,null);
+        if (!isLogin) {
+            startActivity(LoginAcitvity.class, null);
             return;
         }
     }
@@ -102,6 +120,7 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     public int getLayoutResId() {
         return R.layout.fragment_myclass;
     }
+
     public void creatImageOptions() {
         //设置加载过程中的图片
 //                   .setLoadingDrawableId(R.mipmap.guodu_icon)
@@ -124,27 +143,12 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                 .build();
 
     }
+
     protected void initData() {
-          initTop();
-          initBelowData();
+        initTop();
+        initBelowData();
         DataFormNet(kc_types);
-        vp_mime.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                MyClass_Fragment.this.list.get(position).setChecked(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        vp_mime.setOnPageChangeListener(new MyOnPageChangeListener());
     }
 
     private void initTop() {
@@ -152,15 +156,15 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
         String acode = SpUtils.getString(mContext, "acode");
         String username = SpUtils.getString(mContext, "username");
         HashMap<String, String> map = new HashMap<>();
-        map.put("Action","getUserInfo");
-        map.put("acode",acode);
-        map.put("Uid",username);
+        map.put("Action", "getUserInfo");
+        map.put("acode", acode);
+        map.put("Uid", username);
         XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
-                Gson gson=new Gson();
+                Gson gson = new Gson();
                 UserInfoBean bean = gson.fromJson(result, UserInfoBean.class);
-                Log.e("zhaogui",bean.Nicename+"aaaaaaaaaaaaa");
+                Log.e("zhaogui", bean.Nicename + "aaaaaaaaaaaaa");
                 tvMine.setText(bean.Nicename);
                 x.image().loadDrawable(bean.Pic, options, new Callback.CommonCallback<Drawable>() {
                     @Override
@@ -183,10 +187,11 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
 
                     }
                 });
-                XutilsHttp.getInstance().bindCircularImage(circleImageView,bean.Pic,true);
+                XutilsHttp.getInstance().bindCircularImage(circleImageView, bean.Pic, true);
             }
         });
     }
+
     private void initBelowData() {
         list = new ArrayList<RadioButton>();
         rbHasbuy.setChecked(true);
@@ -203,6 +208,12 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
         list.add(bt_yinpin);
         list.add(bt_dushu);
         list.add(bt_wenzhang);
+        if (adapter == null) {
+            adapter = new MyAdapter();
+            vp_mime.setAdapter(adapter);
+        } else {
+            adapter.notifyDataSetChanged();
+        }
         childCount = rg_mine_item.getChildCount();
         rg_mine_item.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -210,21 +221,25 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
 
                 switch (checkedId) {
                     case R.id.bt_shipin:
-                        if(rbHasbuy.isChecked()==true){
-                            DataFormNet(0);
+                        if (rbOffine.isChecked() == true) {
+                            tv_vp_item.setVisibility(View.VISIBLE);
+
+                        }else{
+                            tv_vp_item.setVisibility(View.GONE);
                         }
+                        adapter.notifyDataSetChanged();
                         vp_mime.setCurrentItem(0);
                         break;
                     case R.id.bt_yinpin:
-                        if(rbHasbuy.isChecked()==true){
-                            DataFormNet(1);
+                        if (rbOffine.isChecked() == true) {
+                            tv_vp_item.setVisibility(View.VISIBLE);
+                        }else{
+                            tv_vp_item.setVisibility(View.GONE);
                         }
+                        adapter.notifyDataSetChanged();
                         vp_mime.setCurrentItem(1);
                         break;
                     case R.id.bt_dushu:
-                        if(rbHasbuy.isChecked()==true){
-                            DataFormNet(2);
-                        }
                         vp_mime.setCurrentItem(2);
                         break;
                     case R.id.bt_wenzhang:
@@ -235,24 +250,20 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
         });
         flMine.addView(view);
     }
+
     private void DataFormNet(int kc_types) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("Action","GetCourseInfo");
-        map.put("Kc_types",kc_types+"");
-        map.put("kc_id","118256");//课程号
-        map.put("Acode",SpUtils.getString(mContext,LoginAcitvity.ACODE));
-        map.put("uid",SpUtils.getString(mContext,LoginAcitvity.USERNAME));
+        map.put("Action", "GetCourseInfo");
+        map.put("Kc_types", kc_types + "");
+        map.put("kc_id", "118256");//课程号
+        map.put("Acode", SpUtils.getString(mContext, LoginAcitvity.ACODE));
+        map.put("uid", SpUtils.getString(mContext, LoginAcitvity.USERNAME));
         XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 //解析数据
 
-                if(adapter==null){
-                    adapter = new MyAdapter();
-                    vp_mime.setAdapter(adapter);
-                }else{
-                    adapter.notifyDataSetChanged();
-                }
+
             }
         });
     }
@@ -262,20 +273,20 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         switch (checkedId) {
             case R.id.rb_hasbuy:
+                tv_vp_item.setVisibility(View.GONE);
+                titleDelete.setVisibility(View.GONE);
                 bt_wenzhang.setVisibility(View.GONE);
-                //网络获取
-                DataFormNet(0);
                 bt_shipin.setChecked(true);
                 childCount = 3;
                 list.clear();
                 list.add(bt_shipin);
                 list.add(bt_yinpin);
                 list.add(bt_dushu);
-
                 adapter.notifyDataSetChanged();
-
                 break;
             case R.id.rb_recent:
+                tv_vp_item.setVisibility(View.GONE);
+                titleDelete.setVisibility(View.VISIBLE);
                 bt_wenzhang.setVisibility(View.VISIBLE);
                 bt_shipin.setChecked(true);
                 childCount = 4;
@@ -285,10 +296,17 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                 list.add(bt_dushu);
                 list.add(bt_wenzhang);
                 //读取本地的
-
+                DbManager db = x.getDb( Db.getDaoConfig());
+                try {
+                    dbAll = db.selector(Kc_Course.class).findAll();
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.rb_offine:
+                tv_vp_item.setVisibility(View.VISIBLE);
+                titleDelete.setVisibility(View.VISIBLE);
                 bt_wenzhang.setVisibility(View.GONE);
                 bt_shipin.setChecked(true);
                 childCount = 3;
@@ -297,12 +315,12 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                 list.add(bt_yinpin);
                 list.add(bt_dushu);
                 //读取本地的
-
                 adapter.notifyDataSetChanged();
                 break;
         }
         vp_mime.setCurrentItem(0);
     }
+
 
     class MyAdapter extends PagerAdapter {
 
@@ -319,13 +337,14 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View view = View.inflate(mContext, R.layout.vp_item, null);
-            ListView lv_vp_item = (ListView) view.findViewById(R.id.lv_vp_item);
-           /* if(listAdapter==null){
-               // listAdapter = new MyListViewAdapter();
-               // lv_vp_item.setAdapter(listAdapter);
+            tv_vp_item = view.findViewById(R.id.tv_vp_item);
+            tv_vp_item.setText("当前总内存"+getTotalMemory()+"/当前剩余内存"+getAvailMemory());
+            if(rbOffine.isChecked()==true){
+                tv_vp_item.setVisibility(View.VISIBLE);
             }else{
-             //   listAdapter.notifyDataSetChanged();
-            }*/
+                tv_vp_item.setVisibility(View.GONE);
+            }
+            ListView lv_vp_item = (ListView) view.findViewById(R.id.lv_vp_item);
 
             container.addView(view);
             return view;
@@ -337,12 +356,84 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
         }
     }
 
-  /*  class MyListViewAdapter extends BaseAdapter {
+    class OffineListViewAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            return null;
+        }
+    }
+
+    class RecentListViewAdapter extends BaseAdapter {
+        @Override
+        public int getViewTypeCount() {
+            return 4;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+
+            return dbAll.get(position).getFlag() ;
+        }
 
         @Override
         public int getCount() {
 
-           return listtext.size();
+            return dbAll.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup viewGroup) {
+            switch (getItemViewType(position)){
+                    case 0:
+
+                    break;
+                    case 1:
+
+                    break;
+                     case 2:
+
+                    break;
+                   case 3:
+
+            }
+
+            return convertView;
+        }
+
+    }
+
+    class HasbuyListViewAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+
+            return 0;
         }
 
         @Override
@@ -360,10 +451,80 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
 
             convertView = View.inflate(mContext, R.layout.left_listview_item, null);
             Button bt = (Button) convertView.findViewById(R.id.bt_left_listView);
-            bt.setText(listtext.get(position) + "");
             return convertView;
         }
-    }*/
+    }
+    /**
+     * 获取手机内存大小
+     *
+     * @return
+     */
+    private String getTotalMemory()
+    {
+        String str1 = "/proc/meminfo";// 系统内存信息文件
+        String str2 = null;
+        String[] arrayOfString;
+        long initial_memory = 0;
+        try
+        {
+            FileReader localFileReader = null;
+            try {
+                localFileReader = new FileReader(str1);
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+            BufferedReader localBufferedReader = new BufferedReader(localFileReader, 8192);
+            try {
+                str2 = localBufferedReader.readLine();// 读取meminfo第一行，系统总内存大小
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
 
+            arrayOfString = str2.split("\\s+");
+            for (String num : arrayOfString)
+            {
+                Log.i(str2, num + "\t");
+            }
 
+            initial_memory = Integer.valueOf(arrayOfString[1]).intValue() * 1024;// 获得系统总内存，单位是KB，乘以1024转换为Byte
+            try {
+                localBufferedReader.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Formatter.formatFileSize(mContext, initial_memory);// Byte转换为KB或者MB，内存大小规格化
+    }
+    /**
+     * 获取当前可用内存大小
+     *
+     * @return
+     */
+    private String getAvailMemory()
+    {
+        ActivityManager am = (ActivityManager) mContext.getSystemService(mContext.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
+        am.getMemoryInfo(mi);
+        return Formatter.formatFileSize(mContext, mi.availMem);
+    }
+    private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+            MyClass_Fragment.this.list.get(position).setChecked(true);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    }
 }
