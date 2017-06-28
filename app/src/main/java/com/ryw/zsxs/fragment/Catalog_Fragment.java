@@ -9,6 +9,7 @@
 package com.ryw.zsxs.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,5 +167,11 @@ public class Catalog_Fragment extends BaseFragment {
                 ButterKnife.bind(this, view);
             }
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.e(TAG, "onViewCreated: " );
     }
 }

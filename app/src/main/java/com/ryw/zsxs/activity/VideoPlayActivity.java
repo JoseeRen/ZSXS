@@ -18,11 +18,15 @@ import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.bean.CourseListBean;
+import com.ryw.zsxs.events.DataLoadComplatedEvent;
 import com.ryw.zsxs.fragment.Catalog_Fragment;
 import com.ryw.zsxs.fragment.Comment_Fragment;
 import com.ryw.zsxs.fragment.Details_Fragment;
 import com.ryw.zsxs.fragment.Recommend_Fragment;
 import com.ryw.zsxs.view.ViewPagerIndicator;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -123,6 +127,7 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     public void init(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         //初始化视频播放
         Vitamio.isInitialized(getApplicationContext());
         Bundle bundle = getIntent().getExtras();
@@ -223,4 +228,21 @@ public class VideoPlayActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 注册订阅者
+     *
+     * @param event
+     */
+    @Subscribe
+    public void onDataLoadComplated(DataLoadComplatedEvent event) {
+        Log.e(TAG, "onDataLoadComplated: " + "收到事件完成");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+
+    }
 }
