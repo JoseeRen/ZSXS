@@ -37,7 +37,7 @@
         android:id="@+id/btn_item_lv_catologfragment_shiting"
         android:layout_width="60dp"
         android:textColor="#000"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:drawableTop="@mipmap/shiting_smart"

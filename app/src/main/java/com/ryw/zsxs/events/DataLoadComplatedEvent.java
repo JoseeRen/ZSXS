@@ -8,15 +8,17 @@
 
 package com.ryw.zsxs.events;
 
+import android.os.Bundle;
+
 /**
  * Created by Mr_Shadow on 2017/6/28.
  * 数据加载完成  可以显示
  */
 
 public class DataLoadComplatedEvent {
-    public final String message;
+    public final Bundle message;
 
-    public DataLoadComplatedEvent(String message) {
+    public DataLoadComplatedEvent(Bundle message) {
         this.message = message;
     }
 }

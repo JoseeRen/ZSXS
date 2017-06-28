@@ -9,15 +9,13 @@
 package com.ryw.zsxs.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +26,11 @@ import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.bean.CourseDetailBean;
+import com.ryw.zsxs.events.DataLoadComplatedEvent;
 import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,9 +59,12 @@ public class Catalog_Fragment extends BaseFragment {
     Button btnCatalogfragmentCachedownload;
     @BindView(R.id.lv_catalogfragment_coursecatalo)
     ListView lvCatalogfragmentCoursecatalo;
-    @BindView(R.id.iv_fragment_catalog_loading)
-    ImageView ivFragmentCatalogLoading;
+
+    @BindView(R.id.ll_fragment_catalog_1)
+    LinearLayout llFragmentCatalog1;
     Unbinder unbinder;
+    private CourseDetailBean courseDetail;
+    private Bundle bundle;
 
     public static Catalog_Fragment getInstance(String kc_ids) {
         kc_id = kc_ids;
@@ -72,11 +76,10 @@ public class Catalog_Fragment extends BaseFragment {
 
     @Override
     public void init(Bundle savedInstanceState) {
-        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.loading_rotate);
-        ivFragmentCatalogLoading.setAnimation(animation);
-        animation.start();
+
         initData();
     }
+
 
     private void initData() {
         HashMap<String, String> map = new HashMap<>();
@@ -88,14 +91,35 @@ public class Catalog_Fragment extends BaseFragment {
         XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
-                Log.e(TAG, "onResponse: " + result);
                 Gson gson = new Gson();
-                CourseDetailBean courseDetail = gson.fromJson(result, CourseDetailBean.class);
+                courseDetail = gson.fromJson(result, CourseDetailBean.class);
                 tvCatalogfragmentKcjishu.setText("共" + courseDetail.getFiles().size() + "集");
                 tvCatalogfragmentKctitle.setText(courseDetail.getKc_title());
                 lvCatalogfragmentCoursecatalo.setAdapter(new MyAdapter(courseDetail.getFiles()));
+                lvCatalogfragmentCoursecatalo.setOnItemClickListener(new MyOnItemClickListener());
+                //加载页面完成  显示布局  发送消息
+                postComplated(courseDetail.getFiles().get(1));
             }
         });
+    }
+
+    private void postComplated(CourseDetailBean.FilesBean filesBean) {
+        Log.e(TAG, "postComplated: " + "发送事件");
+        bundle = new Bundle();
+        bundle.putString("flag", "complated");
+        bundle.putSerializable("file", filesBean);
+        EventBus.getDefault().post(new DataLoadComplatedEvent(bundle));
+    }
+
+    private void postPlay(CourseDetailBean.FilesBean filesBean) {
+        Log.e(TAG, "postPlay: " + "更换播放事件");
+
+        bundle = new Bundle();
+        bundle.putString("flag", "play");
+
+        bundle.putSerializable("file", filesBean);
+        EventBus.getDefault().post(new DataLoadComplatedEvent(new Bundle()));
+
     }
 
     @Override
@@ -116,7 +140,6 @@ public class Catalog_Fragment extends BaseFragment {
                 break;
         }
     }
-
 
 
     class MyAdapter extends BaseAdapter {
@@ -153,6 +176,8 @@ public class Catalog_Fragment extends BaseFragment {
             } else {
                 holer = (ViewHolder) view.getTag();
             }
+            if (courses.get(i).getFiles_url() == null || courses.get(i).getFiles_url() == "")
+                holer.btnShiting.setVisibility(View.VISIBLE);
             holer.tvFilestitle.setText(courses.get(i).getFiles_title());
             return view;
         }
@@ -169,9 +194,11 @@ public class Catalog_Fragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.e(TAG, "onViewCreated: " );
+
+    private class MyOnItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            postPlay(courseDetail.getFiles().get(i));
+        }
     }
 }
