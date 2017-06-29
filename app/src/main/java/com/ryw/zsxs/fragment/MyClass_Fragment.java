@@ -407,6 +407,7 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                  }
              }
              if(rbHasbuy.isChecked()==true){
+                 //
                  hasbuyListViewAdapter=new HasbuyListViewAdapter();
                  lv_vp_item.setAdapter(hasbuyListViewAdapter);
              }
