@@ -8,6 +8,7 @@
 
 package com.ryw.zsxs.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -152,7 +153,7 @@ public class CourseDetailBean {
         this.files = files;
     }
 
-    public static class FilesBean {
+    public static class FilesBean implements Serializable {
         /**
          * files_id : 203547
          * files_title : [第1节]1.1劳动经济学的研究对象和方法.
