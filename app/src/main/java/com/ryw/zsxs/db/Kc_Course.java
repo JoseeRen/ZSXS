@@ -14,6 +14,16 @@ public class Kc_Course {
       public int id;
      @Column(name="flag")
      public int flag;  //类型  0 1 2 3
+     @Column(name="kc_keshi")
+     public String keshi;
+
+    public String getKeshi() {
+        return keshi;
+    }
+
+    public void setKeshi(String keshi) {
+        this.keshi = keshi;
+    }
 
     public int getFlag() {
         return flag;
@@ -23,7 +33,7 @@ public class Kc_Course {
         this.flag = flag;
     }
 
-    @Column(name="kc_id")
+      @Column(name="kc_id")
       public String kc_id;
       @Column(name="kc_title")
       public String kc_title;
@@ -33,7 +43,15 @@ public class Kc_Course {
       public String kc_money;
       @Column(name="hot")
       public String hot;
-    public Kc_Course(){};
+    public Kc_Course(int flag,String kc_id,String kc_title,String kc_info,String keshi,String kc_money,String hot){
+         this.flag=flag;
+         this.kc_id=kc_id;
+        this.kc_title=kc_title;
+        this.kc_info=kc_info;
+        this.keshi=keshi;
+        this.kc_money=kc_money;
+        this.hot=hot;
+    }
 
     public int getId() {
         return id;

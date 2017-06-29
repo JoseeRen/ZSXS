@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.activity.LoginAcitvity;
+import com.ryw.zsxs.adapter.Adapter;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.bean.UserInfoBean;
@@ -89,10 +90,12 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     public static MyClass_Fragment instance = null;
     private ImageOptions options;
     private HasbuyListViewAdapter hasbuyListViewAdapter;
-    private RecentListViewAdapter recentListViewAdapter;
     private OffineListViewAdapter offineListViewAdapter;
     private TextView tv_vp_item;
     private List<Kc_Course> dbAll;
+    private Adapter.RecentListViewAdapter recentListViewAdapter;
+    private DbManager db;
+
 
     public static MyClass_Fragment getInstance() {
         if (instance == null) {
@@ -227,6 +230,18 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                         }else{
                             tv_vp_item.setVisibility(View.GONE);
                         }
+                         if(rbRecent.isChecked()==true){
+                             try {
+                                 dbAll=db.selector(Kc_Course.class).where("flag","=",0).findAll();
+                                 if(dbAll==null){
+                                     dbAll=new ArrayList<Kc_Course>();
+                                 }
+                                 recentListViewAdapter.notifyDataSetChanged();
+                             } catch (DbException e) {
+                                 e.printStackTrace();
+                             }
+                         }
+
                         adapter.notifyDataSetChanged();
                         vp_mime.setCurrentItem(0);
                         break;
@@ -236,13 +251,46 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                         }else{
                             tv_vp_item.setVisibility(View.GONE);
                         }
+                        if(rbRecent.isChecked()==true){
+                            try {
+                                dbAll=db.selector(Kc_Course.class).where("flag","=",1).findAll();
+                                if(dbAll==null){
+                                    dbAll=new ArrayList<>();
+                                }
+                                recentListViewAdapter.notifyDataSetChanged();
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         adapter.notifyDataSetChanged();
                         vp_mime.setCurrentItem(1);
                         break;
                     case R.id.bt_dushu:
+                        if(rbRecent.isChecked()==true){
+                            try {
+                                dbAll=db.selector(Kc_Course.class).where("flag","=",2).findAll();
+                                if(dbAll==null){
+                                    dbAll=new ArrayList<Kc_Course>();
+                                }
+                                recentListViewAdapter.notifyDataSetChanged();
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         vp_mime.setCurrentItem(2);
                         break;
                     case R.id.bt_wenzhang:
+                        if(rbRecent.isChecked()==true){
+                            try {
+                                dbAll=db.selector(Kc_Course.class).where("flag","=",3).findAll();
+                                if(dbAll==null){
+                                    dbAll=new ArrayList<Kc_Course>();
+                                }
+                                recentListViewAdapter.notifyDataSetChanged();
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         vp_mime.setCurrentItem(3);
                         break;
                 }
@@ -296,9 +344,13 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                 list.add(bt_dushu);
                 list.add(bt_wenzhang);
                 //读取本地的
-                DbManager db = x.getDb( Db.getDaoConfig());
+                db = x.getDb( Db.getDaoConfig());
                 try {
-                    dbAll = db.selector(Kc_Course.class).findAll();
+                    dbAll = db.selector(Kc_Course.class).where("flag","=",0).findAll();
+                    if (dbAll==null){
+                        dbAll = new ArrayList<>();
+                    }
+                    Log.e("zhaogui",dbAll+"aaaaaaaa");
                 } catch (DbException e) {
                     e.printStackTrace();
                 }
@@ -345,7 +397,23 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                 tv_vp_item.setVisibility(View.GONE);
             }
             ListView lv_vp_item = (ListView) view.findViewById(R.id.lv_vp_item);
-
+             if(rbRecent.isChecked()==true&&bt_shipin.isChecked()==true){
+                 if(recentListViewAdapter==null){
+                     recentListViewAdapter= new Adapter.RecentListViewAdapter(dbAll,mContext);
+                     lv_vp_item.setAdapter(recentListViewAdapter);
+                 }else{
+                     recentListViewAdapter.notifyDataSetChanged()
+;
+                 }
+             }
+             if(rbHasbuy.isChecked()==true){
+                 hasbuyListViewAdapter=new HasbuyListViewAdapter();
+                 lv_vp_item.setAdapter(hasbuyListViewAdapter);
+             }
+             if(rbOffine.isChecked()==true){
+                 offineListViewAdapter=new OffineListViewAdapter();
+                 lv_vp_item.setAdapter(offineListViewAdapter);
+             }
             container.addView(view);
             return view;
         }
@@ -379,54 +447,8 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
         }
     }
 
-    class RecentListViewAdapter extends BaseAdapter {
-        @Override
-        public int getViewTypeCount() {
-            return 4;
-        }
 
-        @Override
-        public int getItemViewType(int position) {
 
-            return dbAll.get(position).getFlag() ;
-        }
-
-        @Override
-        public int getCount() {
-
-            return dbAll.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup viewGroup) {
-            switch (getItemViewType(position)){
-                    case 0:
-
-                    break;
-                    case 1:
-
-                    break;
-                     case 2:
-
-                    break;
-                   case 3:
-
-            }
-
-            return convertView;
-        }
-
-    }
 
     class HasbuyListViewAdapter extends BaseAdapter {
 
