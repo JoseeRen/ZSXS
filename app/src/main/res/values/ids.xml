@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-6-27 下午2:41
+  ~ FileName: ids.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<resources>
+    <item name="back" type="id" />
+
+</resources>

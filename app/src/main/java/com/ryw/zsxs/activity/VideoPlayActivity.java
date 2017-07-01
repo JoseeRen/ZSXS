@@ -1,9 +1,15 @@
 package com.ryw.zsxs.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.PagerTabStrip;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,16 +19,33 @@ import android.widget.TextView;
 
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.base.BaseFragment;
+import com.ryw.zsxs.bean.CourseDetailBean;
 import com.ryw.zsxs.bean.CourseListBean;
+import com.ryw.zsxs.events.DataLoadComplatedEvent;
+import com.ryw.zsxs.fragment.Catalog_Fragment;
+import com.ryw.zsxs.fragment.Comment_Fragment;
+import com.ryw.zsxs.fragment.Details_Fragment;
+import com.ryw.zsxs.fragment.Recommend_Fragment;
+import com.ryw.zsxs.view.ViewPagerIndicator;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
 
 /**
  * Created by Mr_Shadow on 2017/6/25.
  * 视频播放界面
+ * <p>
+ * //先初始化目录
+ * 再初始化视频
  */
 
 public class VideoPlayActivity extends BaseActivity {
@@ -30,9 +53,7 @@ public class VideoPlayActivity extends BaseActivity {
     //播放器
     @BindView(R.id.videoview)
     VideoView videoview;
-    //控制器顶部返回
-    @BindView(R.id.ib_videoplay_top_back)
-    ImageButton ibVideoplayTopBack;
+
     //控制器顶部视频名
     @BindView(R.id.tv_videoplay_top_title)
     TextView tvVideoplayTopTitle;
@@ -87,17 +108,21 @@ public class VideoPlayActivity extends BaseActivity {
     //底部布局 的根
     @BindView(R.id.ll_videoplay_bottom)
     LinearLayout llVideoplayBottom;
-    //页签指示器
-    @BindView(R.id.vp_tab_videoplay)
-    PagerTabStrip vpTabVideoplay;
-    //页签
+
     @BindView(R.id.vp_videoplay)
     ViewPager vpVideoplay;
     //视频中间布局
     @BindView(R.id.rl_videoplay_center)
     RelativeLayout rlVideoplayCenter;
+    @BindView(R.id.indicator)
+    ViewPagerIndicator indicator;
+    @BindView(R.id.iv_fragment_catalog_loading)
+    ImageView ivFragmentCatalogLoading;
 
     private CourseListBean.CourseBean course;
+    private String[] titles = {"目录", "详情", "推荐", "评论"};
+    private ArrayList<BaseFragment> fragments;
+    private String kc_types = "0";
 
     @Override
     public int getContentViewResId() {
@@ -106,19 +131,50 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     public void init(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         //初始化视频播放
         Vitamio.isInitialized(getApplicationContext());
         Bundle bundle = getIntent().getExtras();
         //获取到的课程详细
         course = (CourseListBean.CourseBean) bundle.getSerializable("data");
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.loading_rotate);
+        animation.start();
+        ivFragmentCatalogLoading.setAnimation(animation);
+        setEnableOrNot(false);
+        videoview.setOnPreparedListener(new playerPreparedListener());
+
+        initViewPager();
+    }
+
+    /**
+     * 加载时 按钮不能使用
+     */
+    private void setEnableOrNot(boolean enable) {
+        llVideoplayBottom.setEnabled(enable);
+        rlVideoplayCenter.setEnabled(enable);
     }
 
 
-    @OnClick({R.id.ib_videoplay_top_back, R.id.ib_videoplay_top_collect, R.id.ib_videoplay_top_share, R.id.ib_videoplay_top_menu, R.id.ib_videoplay_center_lock, R.id.ib_videoplay_center_play, R.id.ib_videoplay_bottom_playorpause, R.id.tv_videoplay_bottom_playnowtime, R.id.sb_videoplay_bottom_progress, R.id.ib_videoplay_bottom_fullscreenorsmalscreen})
+    private void initViewPager() {
+        fragments = new ArrayList<BaseFragment>();
+        fragments.add(Catalog_Fragment.getInstance(course.getKc_id()));
+        fragments.add(Details_Fragment.getInstance());
+        fragments.add(Recommend_Fragment.getInstance());
+        fragments.add(Comment_Fragment.getInstance());
+
+        vpVideoplay.setAdapter(new MyPagerAdapter(getFragmentManager(), fragments));
+
+        indicator.setViewPager(vpVideoplay);
+        vpVideoplay.setCurrentItem(0);
+        indicator.setOnPageChangeListener(new MyOnPageChangeListener());
+
+    }
+
+
+    @OnClick({R.id.ib_videoplay_top_collect, R.id.ib_videoplay_top_share, R.id.ib_videoplay_top_menu, R.id.ib_videoplay_center_lock, R.id.ib_videoplay_center_play, R.id.ib_videoplay_bottom_playorpause, R.id.tv_videoplay_bottom_playnowtime, R.id.sb_videoplay_bottom_progress, R.id.ib_videoplay_bottom_fullscreenorsmalscreen})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ib_videoplay_top_back:
-                break;
+
             case R.id.ib_videoplay_top_collect:
                 break;
             case R.id.ib_videoplay_top_share:
@@ -126,10 +182,19 @@ public class VideoPlayActivity extends BaseActivity {
             case R.id.ib_videoplay_top_menu:
                 break;
             case R.id.ib_videoplay_center_lock:
+
                 break;
             case R.id.ib_videoplay_center_play:
+                videoview.start();
+
                 break;
             case R.id.ib_videoplay_bottom_playorpause:
+                if (videoview.isPlaying()) {
+                    videoview.pause();
+                } else {
+
+                    videoview.start();
+                }
                 break;
             case R.id.tv_videoplay_bottom_playnowtime:
                 break;
@@ -141,4 +206,99 @@ public class VideoPlayActivity extends BaseActivity {
     }
 
 
+    class MyPagerAdapter extends FragmentPagerAdapter {
+
+
+        private final ArrayList<BaseFragment> fragments;
+
+        public MyPagerAdapter(FragmentManager fm, ArrayList<BaseFragment> fragments) {
+            super(fm);
+            this.fragments = fragments;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+    }
+
+    /**
+     * 注册订阅者
+     *
+     * @param event
+     */
+    @Subscribe
+    public void onDataLoadComplated(DataLoadComplatedEvent event) {
+        Log.e(TAG, "onDataLoadComplated: " + "收到事件完成");
+
+        Bundle bundle = event.message;
+        String flag = bundle.getString("flag");
+        CourseDetailBean.FilesBean filesBean = (CourseDetailBean.FilesBean) bundle.getSerializable("file");
+
+        if ("play".equals(flag)) {
+
+            prePlayer(filesBean);
+        } else {
+            prePlayer(filesBean);
+
+            ivFragmentCatalogLoading.clearAnimation();
+            ivFragmentCatalogLoading.setVisibility(View.GONE);
+            vpVideoplay.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 准备播放视频
+     *
+     * @param filesBean
+     */
+    private void prePlayer(CourseDetailBean.FilesBean filesBean) {
+
+        videoview.setVideoURI(Uri.parse(filesBean.getFiles_url()));
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+
+    }
+
+    private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            Log.e(TAG, "onPageSelected: " + position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    }
+
+    private class playerPreparedListener implements MediaPlayer.OnPreparedListener {
+        @Override
+        public void onPrepared(MediaPlayer mp) {
+
+            tvVideoplayBottomPlaycounttime.setText(mp.getDuration()+"");
+            setEnableOrNot(true);
+            Log.e(TAG, "onPrepared: " + "视频播放器"+mp.getDuration());
+        }
+    }
 }

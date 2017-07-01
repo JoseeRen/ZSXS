@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-6-27 下午3:18
+  ~ FileName: fragment_catalog.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:id="@+id/ll_fragment_catalog_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_catalogfragment_kctitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:maxLines="1"
+            android:paddingBottom="15dp"
+            android:text="人力资源管理师二级（基础+专业知识）"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+
+        <ImageView
+            android:layout_width="match_parent"
+
+            android:layout_height="2dp"
+            android:background="@mipmap/xuanji_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+
+                android:id="@+id/tv_catalogfragment_kcjishu"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="共54节"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <Button
+
+                android:id="@+id/btn_catalogfragment_xuanji"
+
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/transparent"
+
+                android:drawableLeft="@mipmap/yinpin_xuanji_normal"
+                android:drawablePadding="0dp"
+                android:padding="0dp"
+                android:text="选集"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/btn_catalogfragment_cachedownload"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="8dp"
+                android:background="@color/transparent"
+                android:drawableLeft="@mipmap/yinpin_xiazai_normal"
+                android:drawablePadding="0dp"
+                android:padding="0dp"
+                android:text="缓存下载"
+                android:textColor="#000" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+
+            android:layout_height="2dp"
+            android:background="@mipmap/xuanji_line"
+            android:padding="5dp" />
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/lv_catalogfragment_coursecatalo"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        ></ListView>
+
+
+</LinearLayout>

@@ -9,15 +9,12 @@
         android:layout_height="match_parent" />
 
     <include
-        android:id="@+id/videoplay_top"
         layout="@layout/videoplay_top" />
 
     <include
-        android:id="@+id/videoplay_center"
         layout="@layout/videoplay_center" />
 
 
     <include
-        android:id="@+id/videoplay_bottom"
         layout="@layout/videoplay_bottom" />
 </RelativeLayout>

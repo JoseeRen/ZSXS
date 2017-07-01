@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -32,6 +33,8 @@ public abstract class BaseActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewResId());
+
+
         mUnbinder = ButterKnife.bind(this);
         TAG = this.getClass().getSimpleName();
         mContext = this;
@@ -60,13 +63,14 @@ public abstract class BaseActivity extends Activity {
 
     /**
      * Activity跳转
+     *
      * @param
      * @param targetActivity
      * @param bundle
      */
-    public void startActivity(Class<?> targetActivity,Bundle bundle){
+    public void startActivity(Class<?> targetActivity, Bundle bundle) {
         Intent intent = new Intent(this, targetActivity);
-        if(null != bundle){
+        if (null != bundle) {
             intent.putExtras(bundle);
         }
         startActivity(intent);
@@ -80,6 +84,16 @@ public abstract class BaseActivity extends Activity {
         }
         toastUtil.makeText(this, toast, Toast.LENGTH_SHORT).show();
 
+
+    }
+
+    /**
+     * 统一 的返回按钮
+     *
+     * @param view
+     */
+    public void back(View view) {
+        finish();
 
     }
 }
