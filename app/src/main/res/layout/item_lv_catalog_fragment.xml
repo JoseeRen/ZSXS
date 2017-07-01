@@ -10,7 +10,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="20dp">
+    android:padding="10dp"
+    android:touchscreenBlocksFocus="false">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -23,24 +24,26 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textColor="#000"
-            android:text="[第1节]1.1劳动经济学的研究对象和方法." />
+            android:text="[第1节]1.1劳动经济学的研究对象和方法."
+            android:textColor="#000" />
 
-        <ImageButton
+        <ImageView
+            android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@mipmap/mulu_play" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_item_lv_catologfragment_shiting"
         android:layout_width="60dp"
-        android:textColor="#000"
-        android:visibility="invisible"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:drawableTop="@mipmap/shiting_smart"
-        android:text="试听" />
+        android:focusable="false"
+        android:text="试听"
+        android:textColor="#000"
+        android:visibility="invisible" />
 
 </LinearLayout>

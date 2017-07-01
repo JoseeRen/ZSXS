@@ -9,7 +9,9 @@
 package com.ryw.zsxs.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,7 +30,6 @@ import com.ryw.zsxs.activity.AboutZX;
 import com.ryw.zsxs.activity.CursorZhengDing;
 import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
-//import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyJiFen;
 import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
@@ -53,8 +54,9 @@ import org.xutils.x;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+//import com.ryw.zsxs.activity.MyNotes;
 
 /**
  * Created by Mr_Shadow on 2017/6/9.
