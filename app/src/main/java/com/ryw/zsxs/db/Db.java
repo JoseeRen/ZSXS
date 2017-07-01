@@ -19,25 +19,7 @@ import java.io.File;
  */
 
 public class Db {
-    static DbManager.DaoConfig daoConfig;
-    static DbManager  db;
-    public static DbManager.DaoConfig getDaoConfig(){
-        File file=new File(Environment.getExternalStorageDirectory().getParent()+"db");
-        if(daoConfig==null){
-            daoConfig=new DbManager.DaoConfig()
-                    .setDbName("kc_info.db")
-                    .setDbDir(file)
-                    .setDbVersion(1)
-                    .setAllowTransaction(true)
-                    .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
-                        @Override
-                        public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
 
-                        }
-                    });
-        }
-        return daoConfig;
-    }
 
 
 }
