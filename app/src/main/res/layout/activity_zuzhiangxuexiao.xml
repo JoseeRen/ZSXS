@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/zuzhiAndxuexiao_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="网站" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="啦啦啦啦啦啦啦"
+        android:gravity="center"/>
+
+</LinearLayout>

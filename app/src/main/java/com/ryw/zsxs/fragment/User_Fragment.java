@@ -32,6 +32,7 @@ import com.ryw.zsxs.activity.MyCollect;
 import com.ryw.zsxs.activity.MyJiFen;
 import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
+import com.ryw.zsxs.activity.MyTest;
 import com.ryw.zsxs.activity.Setting;
 import com.ryw.zsxs.activity.UserAccountActivity;
 import com.ryw.zsxs.activity.UserJifenActivity;
@@ -40,6 +41,7 @@ import com.ryw.zsxs.activity.UserMessageActivity;
 import com.ryw.zsxs.activity.UserShareActivity;
 import com.ryw.zsxs.activity.UserXuebiActivity;
 import com.ryw.zsxs.activity.UserXueshiActivity;
+import com.ryw.zsxs.activity.ZuZhiAndSchool;
 import com.ryw.zsxs.base.BaseFragment;
 
 import butterknife.BindView;
@@ -285,6 +287,14 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
                 case 6:
                     Intent intent6 = new Intent(mContext, MyJiFen.class);
                     startActivity(intent6);
+                    break;
+                case 7:
+                    Intent intent7 = new Intent(mContext, MyTest.class);
+                    startActivity(intent7);
+                    break;
+                case 8:
+                    Intent intent8 = new Intent(mContext, ZuZhiAndSchool.class);
+                    startActivity(intent8);
                     break;
                 case 10:
                     Intent intent10 = new Intent(mContext, Help.class);

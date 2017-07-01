@@ -45,7 +45,8 @@
             android:textColor="@drawable/text_color"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/search_rb_selector"/>
 
     </RadioGroup>
 
