@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <LinearLayout style="@style/usercenter_header_llbkg"
+        android:id="@+id/woyaozhengding_datitle">
+
+        <ImageView style="@style/usercenter_header_ivback"
+            android:id="@+id/woyaozhengding_back"/>
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="我要征订" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/woyaozhengding_zdTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="征订标题："
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/woyaozhengding_datitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+
+        android:background="@mipmap/article_net_set_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/woyaozhengding_datitle"
+        android:layout_toRightOf="@+id/woyaozhengding_zdTitle"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="7dp"
+        android:hint=""
+        android:layout_alignBottom="@+id/woyaozhengding_zdTitle"
+        android:id="@+id/woyaozhengding_zdTitle_content" />
+
+    <TextView
+        android:id="@+id/woyaozhengding_zdContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="征订内容："
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/woyaozhengding_zdTitle"
+        android:layout_alignLeft="@+id/woyaozhengding_zdTitle"
+        android:layout_alignStart="@+id/woyaozhengding_zdTitle" />
+    <EditText
+        android:id="@+id/woyaozhengding_zdContent_content"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@mipmap/article_net_set_back"
+        android:layout_below="@+id/woyaozhengding_zdTitle_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_alignLeft="@+id/woyaozhengding_zdTitle_content"
+        android:layout_alignStart="@+id/woyaozhengding_zdTitle_content"
+        android:layout_marginRight="7dp"
+        />
+    <Button
+        android:id="@+id/woyaozhengding_tijiao"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@mipmap/green_back"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_below="@+id/woyaozhengding_zdContent_content"
+        android:layout_alignRight="@+id/woyaozhengding_zdContent_content"
+        android:layout_alignEnd="@+id/woyaozhengding_zdContent_content"
+        android:layout_marginTop="16dp"
+        android:text="提交征订"
+        android:textColor="#fff"
+        />
+    <ImageView
+        android:id="@+id/im"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/my_center_line"
+        android:layout_below="@+id/woyaozhengding_tijiao"
+        android:layout_marginTop="15dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/im"
+        android:textColor="#83000000"
+        android:textSize="20sp"
+        android:text="  课程征订说明：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   1.请确定本站没有找到您需要的课程，如果有您需要的课程或已有人提出此课的征集，我们会及时回复您并通过您提交的征课要求。
+   2.不可征订与学习课程无关的内容，否则不予处理。
+   3.审核通过的课程征订，会在全部征订中显示，社员都可以进行追加征订，老师们"/>
+
+
+</RelativeLayout>

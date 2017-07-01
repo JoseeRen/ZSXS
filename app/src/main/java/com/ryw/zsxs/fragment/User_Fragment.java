@@ -23,11 +23,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.AboutZX;
+import com.ryw.zsxs.activity.CursorZhengDing;
 import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
 //import com.ryw.zsxs.activity.MyNotes;
+import com.ryw.zsxs.activity.MyJiFen;
 import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
+import com.ryw.zsxs.activity.Setting;
 import com.ryw.zsxs.activity.UserAccountActivity;
 import com.ryw.zsxs.activity.UserJifenActivity;
 import com.ryw.zsxs.activity.UserLoginMessageActivity;
@@ -273,6 +277,23 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
                     Intent intent3 = new Intent(mContext, MyNotes.class);
                     startActivity(intent3);
                     break;
+                case 4:
+                    Intent intent4 = new Intent(mContext, CursorZhengDing.class);
+                    startActivity(intent4);
+                    break;
+                case 6:
+                    Intent intent6 = new Intent(mContext, MyJiFen.class);
+                    startActivity(intent6);
+                    break;
+                case 11:
+                    Intent intent11 = new Intent(mContext, Setting.class);
+                    startActivity(intent11);
+                    break;
+                case 13:
+                    Intent intent13 = new Intent(mContext, AboutZX.class);
+                    startActivity(intent13);
+                    break;
+
             }
         }
     }

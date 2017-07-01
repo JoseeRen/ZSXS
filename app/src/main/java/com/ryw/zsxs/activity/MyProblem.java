@@ -101,8 +101,8 @@ public class MyProblem extends BaseActivity implements View.OnClickListener {
         hashmap.put("Action", "getMyQuestion");
          hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
         hashmap.put("Uid",SpUtils.getString(mContext,LoginAcitvity.USERNAME));
-        //hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
-        //hashmap.put("Uid", "18733513882");
+//        hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
+//        hashmap.put("Uid", "18733513882");
         hashmap.put("Kc_types", i + "");
         XutilsHttp.getInstance().get(Constant.HOSTNAME, hashmap, new XutilsHttp.XCallBack() {
             @Override
@@ -114,7 +114,6 @@ public class MyProblem extends BaseActivity implements View.OnClickListener {
                 if (myPagerAdapter == null) {
 
                     myProblemLvAdapter = new MyProblem.MyProblemLvAdapter();
-
 
                     myPagerAdapter = new MyProblem.MyPagerAdapter();
                     myproblemVp.setAdapter(myPagerAdapter);

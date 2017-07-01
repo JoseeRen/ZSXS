@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
 
 /**
@@ -14,7 +15,7 @@ public class Setting extends BaseActivity {
 
     @Override
     public int getContentViewResId() {
-        return 0;
+        return R.layout.activity_setting;
     }
 
     @Override

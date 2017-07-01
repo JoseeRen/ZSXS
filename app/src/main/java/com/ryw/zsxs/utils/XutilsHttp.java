@@ -65,6 +65,7 @@ public class XutilsHttp {
                 params.addQueryStringParameter(entry.getKey(), entry.getValue());
             }
         }
+
         x.http().get(params, new Callback.CommonCallback<String>() {
 
             @Override
