@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.activity.AboutZX;
 import com.ryw.zsxs.activity.CursorZhengDing;
+import com.ryw.zsxs.activity.Help;
 import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
 //import com.ryw.zsxs.activity.MyNotes;
@@ -284,6 +285,10 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
                 case 6:
                     Intent intent6 = new Intent(mContext, MyJiFen.class);
                     startActivity(intent6);
+                    break;
+                case 10:
+                    Intent intent10 = new Intent(mContext, Help.class);
+                    startActivity(intent10);
                     break;
                 case 11:
                     Intent intent11 = new Intent(mContext, Setting.class);

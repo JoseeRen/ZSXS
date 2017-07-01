@@ -58,6 +58,8 @@
         <activity android:name=".activity.Setting"/><!--个人中心    设置-->
         <activity android:name=".activity.AboutZX" /><!--个人中心    关于中仕-->
         <activity android:name=".activity.WoYaoZhengDing"/><!--个人中心 -课程征订-我要征订页面-->
+        <activity android:name=".activity.ZhengDingMessage"/>
+        <activity android:name=".activity.HelpXiangqing"/><!--个人中心  -帮助与反馈  -详情页面-->
 
 
         <activity android:name=".activity.UserNicknameActivity"/>
