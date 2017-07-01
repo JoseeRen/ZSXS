@@ -65,6 +65,7 @@ public class Catalog_Fragment extends BaseFragment {
     Unbinder unbinder;
     private CourseDetailBean courseDetail;
     private Bundle bundle;
+    private int currentPosition=0;
 
     public static Catalog_Fragment getInstance(String kc_ids) {
         kc_id = kc_ids;
@@ -104,7 +105,7 @@ public class Catalog_Fragment extends BaseFragment {
     }
 
     private void postComplated(CourseDetailBean.FilesBean filesBean) {
-        Log.e(TAG, "postComplated: " + "发送事件");
+        Log.e(TAG, "postComplated: " + "加载完成事件"+filesBean.getFiles_title());
         bundle = new Bundle();
         bundle.putString("flag", "complated");
         bundle.putSerializable("file", filesBean);
@@ -118,7 +119,7 @@ public class Catalog_Fragment extends BaseFragment {
         bundle.putString("flag", "play");
 
         bundle.putSerializable("file", filesBean);
-        EventBus.getDefault().post(new DataLoadComplatedEvent(new Bundle()));
+        EventBus.getDefault().post(new DataLoadComplatedEvent(bundle));
 
     }
 
@@ -176,8 +177,21 @@ public class Catalog_Fragment extends BaseFragment {
             } else {
                 holer = (ViewHolder) view.getTag();
             }
-            if (courses.get(i).getFiles_url() == null || courses.get(i).getFiles_url() == "")
+
+            if (courses.get(i).getFiles_url() != null && courses.get(i).getFiles_url() .length()>0){
+                Log.e(TAG, "getView: "+courses.get(i).getFiles_url() );
                 holer.btnShiting.setVisibility(View.VISIBLE);
+
+            }else {
+                holer.btnShiting.setVisibility(View.INVISIBLE);
+
+            }
+            if (currentPosition==i){
+                holer.tvFilestitle.setTextColor(getResources().getColor(R.color.leftTextColorSelected));
+            }else {
+                holer.tvFilestitle.setTextColor(getResources().getColor(R.color.black));
+
+            }
             holer.tvFilestitle.setText(courses.get(i).getFiles_title());
             return view;
         }
@@ -198,6 +212,7 @@ public class Catalog_Fragment extends BaseFragment {
     private class MyOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            currentPosition = i;
             postPlay(courseDetail.getFiles().get(i));
         }
     }

@@ -8,7 +8,7 @@
     <LinearLayout style="@style/usercenter_header_llbkg">
 
         <ImageView
-            android:id="@+id/iv_usernickname_back"
+            android:id="@+id/iv_userupdatepsw_back"
             style="@style/usercenter_header_ivback" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="再次输入xin密码"
+            android:hint="再次输入新密码"
             android:paddingTop="20dp"
             android:textColor="#000" />
 
