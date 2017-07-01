@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,11 +24,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.activity.LoginAcitvity;
-import com.ryw.zsxs.adapter.Adapter;
+import com.ryw.zsxs.adapter.RecentListViewAdapter;
 import com.ryw.zsxs.app.Constant;
+import com.ryw.zsxs.app.MyApplication;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.bean.UserInfoBean;
-import com.ryw.zsxs.db.Db;
 import com.ryw.zsxs.db.Kc_Course;
 import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
@@ -46,6 +47,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
@@ -76,6 +78,16 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     @BindView(R.id.r)
     RelativeLayout r;
     Unbinder unbinder;
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
+    Unbinder unbinder1;
+    @BindView(R.id.bt_delete)
+    Button btDelete;
+    @BindView(R.id.bt_cancel)
+    Button btCancel;
+    Unbinder unbinder2;
+    @BindView(R.id.bt_select_all)
+    Button btSelectAll;
     private RadioButton bt_wenzhang;
     private RadioGroup rg_mine_item;
     private RadioButton bt_shipin;
@@ -92,9 +104,14 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     private HasbuyListViewAdapter hasbuyListViewAdapter;
     private OffineListViewAdapter offineListViewAdapter;
     private TextView tv_vp_item;
-    private List<Kc_Course> dbAll;
-    private Adapter.RecentListViewAdapter recentListViewAdapter;
+    private RecentListViewAdapter recentListViewAdapter;
     private DbManager db;
+    private ListView lv_vp_item;
+    private List<Kc_Course> dbshipin;
+    private List<Kc_Course> dbyinpin;
+    private List<Kc_Course> dbdushu;
+    private List<Kc_Course> dbwenzhang;
+    private int visibility;
 
 
     public static MyClass_Fragment getInstance() {
@@ -148,10 +165,107 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     }
 
     protected void initData() {
+        //初始化一条数据
+        initShuju();//后期删除
         initTop();
         initBelowData();
         DataFormNet(kc_types);
         vp_mime.setOnPageChangeListener(new MyOnPageChangeListener());
+        initListener();
+    }
+
+    private void initShuju() {
+        db = x.getDb(MyApplication.getInstance().getDaoConfig());
+        try {
+            dbdushu = db.selector(Kc_Course.class).where("flag", "==", 0).findAll();
+            if (dbdushu == null) {
+                dbdushu = new ArrayList<>();
+            }
+            Log.e("zhaogui", dbdushu.size() + "ccccccccccccccc");
+            for (Kc_Course kc : dbdushu) {
+                Log.e("zhaogui", kc.toString());
+
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        Kc_Course kc_course = new Kc_Course();
+        kc_course.setFlag("0");
+        kc_course.setKc_title("aaaa");
+        kc_course.setKc_info("bbbb");
+        kc_course.setHot("100");
+        kc_course.setKc_money("200");
+        kc_course.setKeshi("300");
+        Kc_Course kc_course1 = new Kc_Course();
+        kc_course1.setFlag("1");
+        kc_course1.setKc_title("cccc");
+        kc_course1.setKc_info("ddd");
+        kc_course1.setHot("200");
+        kc_course1.setKc_money("300");
+        kc_course1.setKeshi("400");
+        Kc_Course kc_course2 = new Kc_Course();
+        kc_course2.setFlag("2");
+        kc_course2.setKc_title("cccc");
+        kc_course2.setKc_info("ddd");
+        kc_course2.setHot("200");
+        kc_course2.setKc_money("300");
+        kc_course2.setKeshi("400");
+        Kc_Course kc_course3 = new Kc_Course();
+        kc_course3.setFlag("3");
+        kc_course3.setKc_title("cccc");
+        kc_course3.setKc_info("ddd");
+        kc_course3.setHot("200");
+        kc_course3.setKc_money("300");
+        kc_course3.setKeshi("400");
+        try {
+            db.save(kc_course);
+            db.save(kc_course1);
+            db.save(kc_course2);
+            db.save(kc_course3);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initListener() {
+        titleDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llBottom.setVisibility(View.VISIBLE);
+                if (llBottom.getVisibility() == View.VISIBLE) {
+                    recentListViewAdapter.flag = true;
+                    recentListViewAdapter.notifyDataSetChanged();
+                }
+
+
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llBottom.setVisibility(View.GONE);
+                if (llBottom.getVisibility() == View.GONE) {
+                    recentListViewAdapter.flag = false;
+                    recentListViewAdapter.notifyDataSetChanged();
+                }
+
+
+            }
+        });
+        //删除数据 ，删除数据库数据
+        btDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //全部打勾
+        btSelectAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void initTop() {
@@ -167,7 +281,6 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
             public void onResponse(String result) {
                 Gson gson = new Gson();
                 UserInfoBean bean = gson.fromJson(result, UserInfoBean.class);
-                Log.e("zhaogui", bean.Nicename + "aaaaaaaaaaaaa");
                 tvMine.setText(bean.Nicename);
                 x.image().loadDrawable(bean.Pic, options, new Callback.CommonCallback<Drawable>() {
                     @Override
@@ -226,71 +339,78 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                     case R.id.bt_shipin:
                         if (rbOffine.isChecked() == true) {
                             tv_vp_item.setVisibility(View.VISIBLE);
-
-                        }else{
+                        } else {
                             tv_vp_item.setVisibility(View.GONE);
                         }
-                         if(rbRecent.isChecked()==true){
-                             try {
-                                 dbAll=db.selector(Kc_Course.class).where("flag","=",0).findAll();
-                                 if(dbAll==null){
-                                     dbAll=new ArrayList<Kc_Course>();
-                                 }
-                                 recentListViewAdapter.notifyDataSetChanged();
-                             } catch (DbException e) {
-                                 e.printStackTrace();
-                             }
-                         }
+                        if (rbRecent.isChecked() == true) {
+                            try {
+                                dbshipin = db.selector(Kc_Course.class).where("flag", "==", "0").findAll();
+                                Log.e("zhaogui", dbshipin.size() + "bbbbbbbbb");
+                                for (Kc_Course kc : dbshipin) {
+                                    Log.e("zhaogui", kc.toString());
+                                }
 
-                        adapter.notifyDataSetChanged();
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                            recentListViewAdapter = new RecentListViewAdapter(dbshipin, mContext);
+                            lv_vp_item.setAdapter(recentListViewAdapter);
+
+                        }
+
                         vp_mime.setCurrentItem(0);
                         break;
                     case R.id.bt_yinpin:
                         if (rbOffine.isChecked() == true) {
                             tv_vp_item.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             tv_vp_item.setVisibility(View.GONE);
                         }
-                        if(rbRecent.isChecked()==true){
+                        if (rbRecent.isChecked() == true) {
                             try {
-                                dbAll=db.selector(Kc_Course.class).where("flag","=",1).findAll();
-                                if(dbAll==null){
-                                    dbAll=new ArrayList<>();
-                                }
-                                recentListViewAdapter.notifyDataSetChanged();
+                                dbyinpin = db.selector(Kc_Course.class).where("flag", "==", "1").findAll();
+                                Log.e("zhaogui", dbyinpin.size() + "bbbbbbbbb");
+
                             } catch (DbException e) {
                                 e.printStackTrace();
                             }
+                            recentListViewAdapter = new RecentListViewAdapter(dbyinpin, mContext);
+                            lv_vp_item.setAdapter(recentListViewAdapter);
+
                         }
-                        adapter.notifyDataSetChanged();
+
                         vp_mime.setCurrentItem(1);
                         break;
                     case R.id.bt_dushu:
-                        if(rbRecent.isChecked()==true){
+                        if (rbRecent.isChecked() == true) {
                             try {
-                                dbAll=db.selector(Kc_Course.class).where("flag","=",2).findAll();
-                                if(dbAll==null){
-                                    dbAll=new ArrayList<Kc_Course>();
-                                }
-                                recentListViewAdapter.notifyDataSetChanged();
+                                dbdushu = db.selector(Kc_Course.class).where("flag", "==", "2").findAll();
+                                Log.e("dbdushu", dbdushu.size() + "aaaaa");
+
                             } catch (DbException e) {
                                 e.printStackTrace();
                             }
+                            recentListViewAdapter = new RecentListViewAdapter(dbdushu, mContext);
+                            lv_vp_item.setAdapter(recentListViewAdapter);
+
                         }
+
                         vp_mime.setCurrentItem(2);
                         break;
                     case R.id.bt_wenzhang:
-                        if(rbRecent.isChecked()==true){
+                        if (rbRecent.isChecked() == true) {
                             try {
-                                dbAll=db.selector(Kc_Course.class).where("flag","=",3).findAll();
-                                if(dbAll==null){
-                                    dbAll=new ArrayList<Kc_Course>();
-                                }
-                                recentListViewAdapter.notifyDataSetChanged();
+                                dbwenzhang = db.selector(Kc_Course.class).where("flag", "==", "3").findAll();
+                                Log.e("dbwenzhang", dbdushu.size() + "aaaaa");
+
                             } catch (DbException e) {
                                 e.printStackTrace();
                             }
+                            recentListViewAdapter = new RecentListViewAdapter(dbwenzhang, mContext);
+                            lv_vp_item.setAdapter(recentListViewAdapter);
+
                         }
+
                         vp_mime.setCurrentItem(3);
                         break;
                 }
@@ -321,6 +441,7 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         switch (checkedId) {
             case R.id.rb_hasbuy:
+                llBottom.setVisibility(View.GONE);
                 tv_vp_item.setVisibility(View.GONE);
                 titleDelete.setVisibility(View.GONE);
                 bt_wenzhang.setVisibility(View.GONE);
@@ -344,13 +465,13 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                 list.add(bt_dushu);
                 list.add(bt_wenzhang);
                 //读取本地的
-                db = x.getDb( Db.getDaoConfig());
                 try {
-                    dbAll = db.selector(Kc_Course.class).where("flag","=",0).findAll();
-                    if (dbAll==null){
-                        dbAll = new ArrayList<>();
+                    dbshipin = db.selector(Kc_Course.class).where("flag", "==", 0).findAll();
+                    Log.e("zhaogui", dbshipin.size() + "bbbbbbbbb");
+                    for (Kc_Course kc : dbshipin) {
+                        Log.e("zhaogui", kc.toString());
                     }
-                    Log.e("zhaogui",dbAll+"aaaaaaaa");
+
                 } catch (DbException e) {
                     e.printStackTrace();
                 }
@@ -367,12 +488,12 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
                 list.add(bt_yinpin);
                 list.add(bt_dushu);
                 //读取本地的
+
                 adapter.notifyDataSetChanged();
                 break;
         }
         vp_mime.setCurrentItem(0);
     }
-
 
     class MyAdapter extends PagerAdapter {
 
@@ -388,40 +509,25 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+
             View view = View.inflate(mContext, R.layout.vp_item, null);
             tv_vp_item = view.findViewById(R.id.tv_vp_item);
-            tv_vp_item.setText("当前总内存"+getTotalMemory()+"/当前剩余内存"+getAvailMemory());
-            if(rbOffine.isChecked()==true){
+            tv_vp_item.setText("当前总内存" + getTotalMemory() + "/当前剩余内存" + getAvailMemory());
+            if (rbOffine.isChecked() == true) {
                 tv_vp_item.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 tv_vp_item.setVisibility(View.GONE);
             }
-            ListView lv_vp_item = (ListView) view.findViewById(R.id.lv_vp_item);
-             if(rbRecent.isChecked()==true&&bt_shipin.isChecked()==true){
-                 if(recentListViewAdapter==null){
-                     recentListViewAdapter= new Adapter.RecentListViewAdapter(dbAll,mContext);
-                     lv_vp_item.setAdapter(recentListViewAdapter);
-                 }else{
-                     recentListViewAdapter.notifyDataSetChanged()
-;
-                 }
-             }
-             if(rbHasbuy.isChecked()==true){
-                 //
-                 hasbuyListViewAdapter=new HasbuyListViewAdapter();
-                 lv_vp_item.setAdapter(hasbuyListViewAdapter);
-             }
-             if(rbOffine.isChecked()==true){
-                 offineListViewAdapter=new OffineListViewAdapter();
-                 lv_vp_item.setAdapter(offineListViewAdapter);
-             }
+            lv_vp_item = (ListView) view.findViewById(R.id.lv_vp_item);
+
+
             container.addView(view);
             return view;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
+//            container.removeView((View) object);
         }
     }
 
@@ -447,8 +553,6 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
             return null;
         }
     }
-
-
 
 
     class HasbuyListViewAdapter extends BaseAdapter {
@@ -477,19 +581,18 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
             return convertView;
         }
     }
+
     /**
      * 获取手机内存大小
      *
      * @return
      */
-    private String getTotalMemory()
-    {
+    private String getTotalMemory() {
         String str1 = "/proc/meminfo";// 系统内存信息文件
         String str2 = null;
         String[] arrayOfString;
         long initial_memory = 0;
-        try
-        {
+        try {
             FileReader localFileReader = null;
             try {
                 localFileReader = new FileReader(str1);
@@ -504,8 +607,7 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
             }
 
             arrayOfString = str2.split("\\s+");
-            for (String num : arrayOfString)
-            {
+            for (String num : arrayOfString) {
                 Log.i(str2, num + "\t");
             }
 
@@ -521,18 +623,19 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
         }
         return Formatter.formatFileSize(mContext, initial_memory);// Byte转换为KB或者MB，内存大小规格化
     }
+
     /**
      * 获取当前可用内存大小
      *
      * @return
      */
-    private String getAvailMemory()
-    {
+    private String getAvailMemory() {
         ActivityManager am = (ActivityManager) mContext.getSystemService(mContext.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
         am.getMemoryInfo(mi);
         return Formatter.formatFileSize(mContext, mi.availMem);
     }
+
     private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

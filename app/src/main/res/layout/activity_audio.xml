@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/top_audio"></include>
+       <RadioGroup
+           android:id="@+id/gv_audio"
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <RadioButton
+               android:id="@+id/rb_xiangqing"
+               android:gravity="center"
+               android:button="@null"
+               android:textColor="@drawable/rb_textcolor_selector"
+               android:textSize="20sp"
+               android:text="详情.评论"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="50dp" />
+           <View
+               android:background="#646464"
+               android:layout_width="0.5dp"
+               android:layout_height="50dp">
+           </View>
+
+           <RadioButton
+               android:id="@+id/rb_kecheng"
+               android:layout_width="0dp"
+               android:layout_height="50dp"
+               android:layout_weight="1"
+               android:button="@null"
+               android:gravity="center"
+               android:text="课程列表"
+               android:textColor="@drawable/rb_textcolor_selector"
+               android:textSize="20sp" />
+       </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_audio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+</LinearLayout>
