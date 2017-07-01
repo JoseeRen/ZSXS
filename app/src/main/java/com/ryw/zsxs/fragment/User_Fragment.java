@@ -9,7 +9,10 @@
 package com.ryw.zsxs.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,10 +25,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
-//import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
 import com.ryw.zsxs.activity.UserAccountActivity;
@@ -35,10 +38,23 @@ import com.ryw.zsxs.activity.UserMessageActivity;
 import com.ryw.zsxs.activity.UserShareActivity;
 import com.ryw.zsxs.activity.UserXuebiActivity;
 import com.ryw.zsxs.activity.UserXueshiActivity;
+import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
+import com.ryw.zsxs.bean.UserInfoBean;
+import com.ryw.zsxs.utils.SpUtils;
+import com.ryw.zsxs.utils.XutilsHttp;
+
+import org.xutils.common.Callback;
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+//import com.ryw.zsxs.activity.MyNotes;
 
 /**
  * Created by Mr_Shadow on 2017/6/9.
@@ -80,6 +96,12 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
     RelativeLayout rlBackground;
     Unbinder unbinder1;
     View view;
+    @BindView(R.id.tv_user_myjifen)
+    TextView tvUserMyjifen;
+    @BindView(R.id.tv_user_myxuebi)
+    TextView tvUserMyxuebi;
+    @BindView(R.id.tv_user_myxueshi)
+    TextView tvUserMyxueshi;
     private Intent userlogin_intent;
 
     // 存放个人中心listview的图片
@@ -98,7 +120,6 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
             "5", "积分商城", "考试中心", "组织&学校",
             "9", "帮助与反馈", "设置",
             "12", "关于中仕"};
-
 
 
     public static User_Fragment getInstance() {
@@ -120,6 +141,13 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
         return R.layout.fragment_user;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 获取中仕个人中心的数据
+        getUsertopMessage();
+    }
+
     /**
      * 初始化数据
      */
@@ -127,6 +155,53 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
         // listview 设置视频器
         lvUser.setAdapter(new MyUserListAdapter());
         setListViewHeightBasedOnChildren(lvUser);
+    }
+
+    /**
+     * 获取中仕个人中心 用户名，头像，我的积分，我的学币，我的学识
+     */
+    private void getUsertopMessage() {
+        final ImageOptions options = new ImageOptions.Builder()
+                .setUseMemCache(true)
+                .setIgnoreGif(true)
+                .build();
+        HashMap<String, String> hashmap = new HashMap<>();
+        hashmap.put("Action", "getUserInfo");
+        hashmap.put("acode", SpUtils.getString(mContext, LoginAcitvity.ACODE));
+        hashmap.put("Uid", SpUtils.getString(mContext, LoginAcitvity.USERNAME));
+        XutilsHttp.getInstance().get(Constant.HOSTNAME, hashmap, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Log.e(TAG, "onResponse: " + result);
+                Gson gson = new Gson();
+                UserInfoBean userInfoBean = gson.fromJson(result, UserInfoBean.class);
+                x.image().loadDrawable(userInfoBean.Pic, options, new Callback.CommonCallback<Drawable>() {
+                    @Override
+                    public void onSuccess(Drawable result) {
+                        ivUserUsermessage.setImageDrawable(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+                tvUserTitle.setText(userInfoBean.Nicename);
+                tvUserMyjifen.setText(userInfoBean.Jifen);
+                tvUserMyxuebi.setText(userInfoBean.Money);
+                tvUserMyxueshi.setText(userInfoBean.xueshi+"");
+            }
+        });
     }
 
 
@@ -260,7 +335,7 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
     private class LvitemOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-            switch (position){
+            switch (position) {
                 case 1:
                     Intent intent1 = new Intent(mContext, MyCollect.class);
                     startActivity(intent1);

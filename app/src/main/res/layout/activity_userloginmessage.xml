@@ -81,7 +81,7 @@
             android:drawableRight="@mipmap/goto_right"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="yqdddddddd"
+            android:text=""
             android:textColor="@color/leftTextColorNormal"
             android:textSize="12sp" />
     </LinearLayout>
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="18733513882"
+            android:text=""
             android:textColor="@color/leftTextColorNormal"
             android:textSize="12sp" />
     </LinearLayout>
@@ -147,7 +147,7 @@
             android:drawableRight="@mipmap/goto_right"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="男"
+            android:text=""
             android:textColor="@color/leftTextColorNormal"
             android:textSize="12sp" />
     </LinearLayout>
@@ -182,7 +182,7 @@
             android:drawableRight="@mipmap/goto_right"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="河北"
+            android:text=""
             android:textColor="@color/leftTextColorNormal"
             android:textSize="12sp" />
     </LinearLayout>
@@ -217,7 +217,7 @@
             android:drawableRight="@mipmap/goto_right"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="email"
+            android:text=""
             android:textColor="@color/leftTextColorNormal"
             android:textSize="12sp" />
     </LinearLayout>
