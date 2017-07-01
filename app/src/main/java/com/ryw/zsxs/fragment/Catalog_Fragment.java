@@ -94,9 +94,10 @@ public class Catalog_Fragment extends BaseFragment {
             public void onResponse(String result) {
                 Gson gson = new Gson();
                 courseDetail = gson.fromJson(result, CourseDetailBean.class);
+                lvCatalogfragmentCoursecatalo.setAdapter(new MyAdapter(courseDetail.getFiles()));
+
                 tvCatalogfragmentKcjishu.setText("共" + courseDetail.getFiles().size() + "集");
                 tvCatalogfragmentKctitle.setText(courseDetail.getKc_title());
-                lvCatalogfragmentCoursecatalo.setAdapter(new MyAdapter(courseDetail.getFiles()));
                 lvCatalogfragmentCoursecatalo.setOnItemClickListener(new MyOnItemClickListener());
                 //加载页面完成  显示布局  发送消息
                 postComplated(courseDetail.getFiles().get(1));
@@ -107,7 +108,7 @@ public class Catalog_Fragment extends BaseFragment {
     private void postComplated(CourseDetailBean.FilesBean filesBean) {
         Log.e(TAG, "postComplated: " + "加载完成事件"+filesBean.getFiles_title());
         bundle = new Bundle();
-        bundle.putString("flag", "complated");
+        bundle.putInt("flag", 0);
         bundle.putSerializable("file", filesBean);
         EventBus.getDefault().post(new DataLoadComplatedEvent(bundle));
     }
@@ -116,7 +117,7 @@ public class Catalog_Fragment extends BaseFragment {
         Log.e(TAG, "postPlay: " + "更换播放事件");
 
         bundle = new Bundle();
-        bundle.putString("flag", "play");
+        bundle.putInt("flag", 4);
 
         bundle.putSerializable("file", filesBean);
         EventBus.getDefault().post(new DataLoadComplatedEvent(bundle));

@@ -24,5 +24,7 @@ public class AudioCenterDetailActivity extends BaseActivity {
         //获取到的课程详细
         CourseListBean.CourseBean data = (CourseListBean.CourseBean) bundle.getSerializable("data");
 
+
+
     }
 }

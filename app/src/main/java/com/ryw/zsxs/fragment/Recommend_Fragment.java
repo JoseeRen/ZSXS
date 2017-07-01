@@ -9,9 +9,25 @@
 package com.ryw.zsxs.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
+import com.ryw.zsxs.bean.SameCourse;
+import com.ryw.zsxs.utils.XutilsHttp;
+
+import java.util.HashMap;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Mr_Shadow on 2017/6/27.
@@ -20,15 +36,110 @@ import com.ryw.zsxs.base.BaseFragment;
 
 public class Recommend_Fragment extends BaseFragment {
     static Recommend_Fragment instance;
+    @BindView(R.id.lv_recommend_fragment)
+    ListView lvRecommendFragment;
+    static String kcTypes;
+    static String kcId;
 
-    public static Recommend_Fragment getInstance() {
+    public static Recommend_Fragment getInstance(String kctypes, String kcid) {
+        kcTypes = kctypes;
+        kcId = kcid;
         if (instance == null) {
             instance = new Recommend_Fragment();
         }
         return instance;
     }
+
     @Override
     public void init(Bundle savedInstanceState) {
+        getDataFormNet();
+    }
+
+
+    public void getDataFormNet() {
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("Action", "GetSameCourse");
+        map.put("cid", kcId);
+        map.put("kc_types", kcTypes);
+        XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Gson gson = new Gson();
+                SameCourse sameCourse = gson.fromJson(result, SameCourse.class);
+                MyAdapter myAdapter = new MyAdapter(sameCourse);
+                lvRecommendFragment.setAdapter(myAdapter);
+            }
+
+        });
+    }
+
+
+    class MyAdapter extends BaseAdapter {
+
+        private final SameCourse sameCourse;
+
+        public MyAdapter(SameCourse sameCourse) {
+            this.sameCourse = sameCourse;
+        }
+
+        @Override
+        public int getCount() {
+            return sameCourse.getSameCourse().size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+
+        @Override
+        public View getView(int i, View convertView, ViewGroup viewGroup) {
+            ViewHolder viewHolder = null;
+            if (convertView == null) {
+                convertView = View.inflate(mContext, R.layout.item_xuankedetail_pvlistview, null);
+                viewHolder = new ViewHolder(convertView);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            XutilsHttp.getInstance().bindCommonImage(viewHolder.ivItemXuankedetailPv, sameCourse.getSameCourse().get(i).getImg(), true);
+            viewHolder.tvTitleItemXuankedetailPv.setText(sameCourse.getSameCourse().get(i).getTitle());
+            viewHolder.tvInfoItemXuankedetailPv.setText(sameCourse.getSameCourse().get(i).getInfo());
+            Log.e(TAG, "getView: " + sameCourse.getSameCourse().get(i).getInfo());
+            viewHolder.tvKeshiItemXuankedetailPv.setText(sameCourse.getSameCourse().get(i).getKeshi() + "课时");
+            viewHolder.tvJifenItemXuankedetailPv.setText(sameCourse.getSameCourse().get(i).getMoney() + "积分");
+            viewHolder.tvDianjiliangItemXuankedetailPv.setText(sameCourse.getSameCourse().get(i).getHot() + "");
+
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            @BindView(R.id.iv_item_xuankedetail_pv)
+            ImageView ivItemXuankedetailPv;
+            @BindView(R.id.tv_title_item_xuankedetail_pv)
+            TextView tvTitleItemXuankedetailPv;
+            @BindView(R.id.tv_keshi_item_xuankedetail_pv)
+            TextView tvKeshiItemXuankedetailPv;
+            @BindView(R.id.tv_jifen_item_xuankedetail_pv)
+            TextView tvJifenItemXuankedetailPv;
+            @BindView(R.id.tv_dianjiliang_item_xuankedetail_pv)
+            TextView tvDianjiliangItemXuankedetailPv;
+            @BindView(R.id.tv_info_item_xuankedetail_pv)
+            TextView tvInfoItemXuankedetailPv;
+
+            ViewHolder(View view) {
+                ButterKnife.bind(this, view);
+            }
+        }
+
 
     }
 
@@ -36,4 +147,6 @@ public class Recommend_Fragment extends BaseFragment {
     public int getLayoutResId() {
         return R.layout.fragment_recommend;
     }
+
+
 }
