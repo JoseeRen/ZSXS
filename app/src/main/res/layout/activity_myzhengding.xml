@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/zhengdingBack"
+            style="@style/usercenter_header_ivback" />
+
+        <ImageView
+            android:id="@+id/jiahao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/sub_first_add"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <RadioGroup
+
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:padding="5dp"
+        >
+        <RadioButton
+            android:checked="true"
+            android:gravity="center"
+            android:text="我的征订"
+            android:id="@+id/myzhengding_my"
+            android:padding="5dp"
+            android:textColor="@drawable/text_color"
+            android:button="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/search_rb_selector"/>
+        <RadioButton
+            android:gravity="center"
+            android:id="@+id/myzhengding_quanbu"
+            android:padding="5dp"
+            android:button="@android:color/transparent"
+            android:text="全部征订"
+            android:textColor="@drawable/text_color"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+
+    <com.ryw.zsxs.view.MyViewpager
+        android:id="@+id/zhengding_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.ryw.zsxs.view.MyViewpager>
+
+</LinearLayout>

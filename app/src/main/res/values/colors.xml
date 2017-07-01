@@ -9,6 +9,7 @@
     <color name="green_text">#03700c</color>
     <color name="g_text">#19fc2b</color>
     <color name="white_text">#fff</color>
+    <color name="black">#000</color>
     <color name="TextColorFocus">#338534</color>
     <color name="colorPrimary">#338534</color>
     <color name="homefragmentline">#f4e8e8e8</color>

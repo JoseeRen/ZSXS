@@ -99,7 +99,10 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
         hashmap.put("Action", "getNotesCourse");
         hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
         hashmap.put("Uid", SpUtils.getString(mContext,LoginAcitvity.USERNAME));
-        hashmap.put("Kc_types", i+"");//这里的课程id需要获取
+//        hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");
+//        hashmap.put("Uid", "18733513882");
+
+        hashmap.put("Kc_types", i+"");//
         XutilsHttp.getInstance().get(Constant.HOSTNAME, hashmap, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
@@ -115,6 +118,7 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
                     mynotesVp.setAdapter(myPagerAdapter);
                 } else {
                     mynotesLvAdapter.notifyDataSetChanged();
+
                 }
             }
         });
@@ -122,10 +126,24 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()){
             case R.id.back:
                 finish();
                 break;
+            case R.id.mynotes_rb_shipin:
+                mynotesVp.setCurrentItem(0);
+                FromNet(0);
+                break;
+            case R.id.mynotes_rb_yinpin:
+                mynotesVp.setCurrentItem(1);
+                FromNet(1);
+                break;
+            case R.id.mynotes_rb_dushu:
+                mynotesVp.setCurrentItem(2);
+                FromNet(2);
+                break;
+
         }
     }
 
@@ -140,6 +158,7 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
         @Override
         public void onPageSelected(int position) {
             mynotes_rb.get(position).setChecked(true);
+            FromNet(position);
         }
 
         @Override

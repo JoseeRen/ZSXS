@@ -7,7 +7,7 @@
     <LinearLayout style="@style/usercenter_header_llbkg">
 
         <ImageView
-            android:id="@+id/iv_usernickname_back"
+            android:id="@+id/iv_email_back"
             style="@style/usercenter_header_ivback" />
 
         <TextView
@@ -19,7 +19,7 @@
             android:textSize="22sp" />
 
         <Button
-            android:id="@+id/bt_nickname_save"
+            android:id="@+id/bt_email_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#315031"
@@ -30,7 +30,7 @@
     <!-- E头布局 -->
 
     <EditText
-        android:id="@+id/et_nickname"
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp" />

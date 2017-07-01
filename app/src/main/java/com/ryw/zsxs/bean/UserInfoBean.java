@@ -1,5 +1,7 @@
 package com.ryw.zsxs.bean;
 
+import android.net.Uri;
+
 /**
  * Created by gui on 2017/6/25.
  */
