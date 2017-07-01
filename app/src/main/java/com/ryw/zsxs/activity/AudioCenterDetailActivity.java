@@ -55,6 +55,7 @@ public class AudioCenterDetailActivity extends FragmentActivity {
         rblist.add(rbXiangqing);
         rblist.add(rbKecheng);
         list = new ArrayList<>();
+        //
         list.add(new Xiangqing_Fragment());
         list.add(new Kecheng_Fragment());
         Intent  intent = getIntent();
