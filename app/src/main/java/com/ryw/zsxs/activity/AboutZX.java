@@ -11,15 +11,12 @@ import com.google.gson.Gson;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
-import com.ryw.zsxs.bean.About;
+import com.ryw.zsxs.bean.AboutBean;
 import com.ryw.zsxs.utils.XutilsHttp;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Zhao on 2017/6/24.
@@ -57,7 +54,7 @@ public class AboutZX extends BaseActivity implements View.OnClickListener{
             @Override
             public void onResponse(String result) {
                 Gson gson = new Gson();
-                About about = gson.fromJson(result, About.class);
+                AboutBean about = gson.fromJson(result, AboutBean.class);
                 Log.e(TAG, "onResponse: "+about.getContent() );
                     aboutzxWv.loadDataWithBaseURL(null,about.getContent(),"text/html","utf-8",null);
 
