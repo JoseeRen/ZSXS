@@ -9,10 +9,7 @@
 package com.ryw.zsxs.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,10 +24,15 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.AboutZX;
+import com.ryw.zsxs.activity.CursorZhengDing;
 import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
+//import com.ryw.zsxs.activity.MyNotes;
+import com.ryw.zsxs.activity.MyJiFen;
 import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
+import com.ryw.zsxs.activity.Setting;
 import com.ryw.zsxs.activity.UserAccountActivity;
 import com.ryw.zsxs.activity.UserJifenActivity;
 import com.ryw.zsxs.activity.UserLoginMessageActivity;
@@ -53,8 +55,6 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-//import com.ryw.zsxs.activity.MyNotes;
 
 /**
  * Created by Mr_Shadow on 2017/6/9.
@@ -120,6 +120,7 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
             "5", "积分商城", "考试中心", "组织&学校",
             "9", "帮助与反馈", "设置",
             "12", "关于中仕"};
+
 
 
     public static User_Fragment getInstance() {
@@ -335,7 +336,7 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
     private class LvitemOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-            switch (position) {
+            switch (position){
                 case 1:
                     Intent intent1 = new Intent(mContext, MyCollect.class);
                     startActivity(intent1);
@@ -348,6 +349,23 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
                     Intent intent3 = new Intent(mContext, MyNotes.class);
                     startActivity(intent3);
                     break;
+                case 4:
+                    Intent intent4 = new Intent(mContext, CursorZhengDing.class);
+                    startActivity(intent4);
+                    break;
+                case 6:
+                    Intent intent6 = new Intent(mContext, MyJiFen.class);
+                    startActivity(intent6);
+                    break;
+                case 11:
+                    Intent intent11 = new Intent(mContext, Setting.class);
+                    startActivity(intent11);
+                    break;
+                case 13:
+                    Intent intent13 = new Intent(mContext, AboutZX.class);
+                    startActivity(intent13);
+                    break;
+
             }
         }
     }

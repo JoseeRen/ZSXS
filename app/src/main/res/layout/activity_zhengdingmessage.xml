@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/zhengdingmessage_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="消息中心" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/zhengdingmessage_gr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/zhengdingmessage_gr_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFEFFFF"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="1123456"
+            android:textColor="#000" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="#fff">
+
+            <ImageView
+                android:id="@+id/zhengdingmessage_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="0dp"
+                android:src="@mipmap/reply" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/zhengdingmessage_image"
+                android:layout_toRightOf="@+id/zhengdingmessage_image"
+                android:gravity="center_vertical"
+                android:text="课程征订回复"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/my_center_line" />
+
+        <TextView
+            android:id="@+id/zhengdingmessage_gr_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="暂无回复"
+            android:textColor="#000" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/my_center_line" />
+
+        <TextView
+            android:id="@+id/zhengdingmessage_gr_time"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:gravity="right"
+            android:paddingTop="20dp"
+            android:text="2017-6-29   "
+            android:paddingRight="5dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/zhengdingmessage_sy"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <TextView
+            android:id="@+id/zhengdingmessage_sy_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFEFFFF"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="征订标题"
+            android:textColor="#000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:text="征订内容:"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="8dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/my_center_line" />
+
+        <TextView
+
+            android:id="@+id/zhengdingmessage_sy_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:text="内容:"
+            android:textColor="#000"
+            android:paddingLeft="8dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/my_center_line" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/zhengdingmessage_sy_zhuijia"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:text="已有1位追加:"
+                android:textColor="#FFC9CACA"
+                android:paddingLeft="8dp"
+                />
+            <TextView
+                android:id="@+id/zhengdingmessage_sy_time"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:text="时间:"
+                android:textColor="#FFC9CACA"
+                android:layout_alignParentRight="true"
+                android:paddingRight="5dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

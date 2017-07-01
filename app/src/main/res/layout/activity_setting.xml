@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout style="@style/usercenter_header_llbkg"
+        android:id="@+id/woyaozhengding_datitle">
+
+        <ImageView style="@style/usercenter_header_ivback"
+            android:id="@+id/woyaozhengding_back"/>
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="设置" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_first"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/woyaozhengding_datitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="开启非wifi播放提醒"
+            android:textColor="#000"
+            android:layout_alignParentTop="true"
+            />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/setting_selector"
+            android:paddingRight="50dp"
+            android:layout_alignParentTop="true"
+            />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:layout_marginTop="11dp"
+
+        android:layout_below="@+id/rl_first"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="开启非wifi播放提醒"
+            android:textColor="#000"
+            android:layout_alignParentTop="true"
+            />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/setting_selector"
+            android:paddingRight="50dp"
+            android:layout_alignParentTop="true"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>
