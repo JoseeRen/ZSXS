@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-7-2 下午4:44
+  ~ FileName: btn_download_selector.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/xiazai_gouxuan" android:state_checked="true"></item>
+    <item android:drawable="@drawable/xiazai_no_gouxuan" android:state_checked="false"></item>
+</selector>

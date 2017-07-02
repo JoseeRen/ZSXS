@@ -106,4 +106,18 @@ public class CourseBean implements Serializable {
     public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
+
+    @Override
+    public String toString() {
+        return "CourseBean{" +
+                "kc_id='" + kc_id + '\'' +
+                ", title='" + title + '\'' +
+                ", img='" + img + '\'' +
+                ", info='" + info + '\'' +
+                ", money='" + money + '\'' +
+                ", keshi=" + keshi +
+                ", hot=" + hot +
+                ", teacher='" + teacher + '\'' +
+                '}';
+    }
 }
