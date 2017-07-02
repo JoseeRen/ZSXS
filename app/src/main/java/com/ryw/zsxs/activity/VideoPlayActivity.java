@@ -26,8 +26,8 @@ import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
 import com.ryw.zsxs.base.BaseFragment;
+import com.ryw.zsxs.bean.CourseBean;
 import com.ryw.zsxs.bean.CourseDetailBean;
-import com.ryw.zsxs.bean.CourseListBean;
 import com.ryw.zsxs.events.DataLoadComplatedEvent;
 import com.ryw.zsxs.fragment.Catalog_Fragment;
 import com.ryw.zsxs.fragment.Comment_Fragment;
@@ -135,7 +135,7 @@ public class VideoPlayActivity extends BaseActivity {
     private static final int MSG_UPDATE_BUFFER = 4;
     private static final int FAVORITE_RESULT = 5;
 
-    private CourseListBean.CourseBean course;
+    private CourseBean course;
     private String[] titles = {"目录", "详情", "推荐", "评论"};
     private ArrayList<BaseFragment> fragments;
     private final String kc_types = "0";
@@ -167,6 +167,7 @@ public class VideoPlayActivity extends BaseActivity {
     private boolean isControllerShowing;
     //控制器是否锁定
     private boolean isLock = false;
+    private int nowPosition;
 
     @Override
     public int getContentViewResId() {
@@ -180,7 +181,7 @@ public class VideoPlayActivity extends BaseActivity {
         Vitamio.isInitialized(getApplicationContext());
         Bundle bundle = getIntent().getExtras();
         //获取到的课程详细
-        course = (CourseListBean.CourseBean) bundle.getSerializable("data");
+        course = (CourseBean) bundle.getSerializable("data");
         GetCourseInfo();
 
         loading();
@@ -253,7 +254,7 @@ public class VideoPlayActivity extends BaseActivity {
         fragments.add(Catalog_Fragment.getInstance(course.getKc_id()));
         fragments.add(Details_Fragment.getInstance(course.getInfo(), course.getKc_id()));
         fragments.add(Recommend_Fragment.getInstance(kc_types, course.getKc_id()));
-        fragments.add(Comment_Fragment.getInstance());
+        fragments.add(Comment_Fragment.getInstance(course.getKc_id()));
 
         vpVideoplay.setAdapter(new MyPagerAdapter(getFragmentManager(), fragments));
 
@@ -266,10 +267,13 @@ public class VideoPlayActivity extends BaseActivity {
 
     @OnClick({R.id.ib_videoplay_top_collect, R.id.ib_videoplay_top_share, R.id.ib_videoplay_top_menu, R.id.ib_videoplay_center_lock, R.id.ib_videoplay_center_play, R.id.ib_videoplay_bottom_playorpause, R.id.tv_videoplay_bottom_playnowtime, R.id.sb_videoplay_bottom_progress, R.id.ib_videoplay_bottom_fullscreenorsmalscreen})
     public void onViewClicked(View view) {
-        //TODO   判断 是否登录 状态
         switch (view.getId()) {
 
             case R.id.ib_videoplay_top_collect:
+                if (!SpUtils.getBoolean(mContext, Constant.IS_LOGIN)) {
+                    Toast.makeText(mContext, "请先登录", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String kc_id = course.getKc_id();
 
                 //     http://api.chinaplat.com/getval_2017?Action=SaveFavorite&cid=140706&acode=02c1c3dacbbc74b67f5190df5bbcc735&Uid=18733502093
@@ -418,6 +422,9 @@ public class VideoPlayActivity extends BaseActivity {
 
         Bundle bundle = event.message;
         int flag = bundle.getInt("flag");
+        if (flag == nowPosition) {
+            hideLoading();
+        }
 
         switch (flag) {
             case 0:
@@ -438,9 +445,7 @@ public class VideoPlayActivity extends BaseActivity {
                 break;
 
 
-
         }
-        hideLoading();
 
     }
 
@@ -464,9 +469,9 @@ public class VideoPlayActivity extends BaseActivity {
 
         @Override
         public void onPageSelected(int position) {
-            if (fragments.get(position) == null) {
-                loading();
-            }
+            nowPosition = position;
+            loading();
+
 
         }
 
@@ -534,6 +539,12 @@ public class VideoPlayActivity extends BaseActivity {
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         handler.removeCallbacksAndMessages(null);
+        if (myMP!=null&&myMP.isPlaying()){
+            myMP.stop();
+        }
+        if (videoview!=null){
+            videoview.stopPlayback();
+        }
         super.onDestroy();
 
     }

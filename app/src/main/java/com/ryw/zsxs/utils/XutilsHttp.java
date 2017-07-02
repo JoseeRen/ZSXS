@@ -267,7 +267,7 @@ public class XutilsHttp {
      */
     public void bindCircularImage(ImageView iv, String url, boolean option) {
         if (option) {
-            options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.duanwang_icon).setFailureDrawableId(R.mipmap.duanwang_icon).setCircular(true).build();
+            options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.center_icon).setFailureDrawableId(R.mipmap.center_icon).setCircular(true).build();
             x.image().bind(iv, url, options);
         } else {
             x.image().bind(iv, url);

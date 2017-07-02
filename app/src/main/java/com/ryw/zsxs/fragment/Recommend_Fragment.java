@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,10 +20,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.VideoPlayActivity;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.bean.SameCourse;
+import com.ryw.zsxs.events.DataLoadComplatedEvent;
 import com.ryw.zsxs.utils.XutilsHttp;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -40,6 +45,7 @@ public class Recommend_Fragment extends BaseFragment {
     ListView lvRecommendFragment;
     static String kcTypes;
     static String kcId;
+    private SameCourse sameCourse;
 
     public static Recommend_Fragment getInstance(String kctypes, String kcid) {
         kcTypes = kctypes;
@@ -52,6 +58,7 @@ public class Recommend_Fragment extends BaseFragment {
 
     @Override
     public void init(Bundle savedInstanceState) {
+        lvRecommendFragment.setOnItemClickListener(new MyOnItemClickListener());
         getDataFormNet();
     }
 
@@ -66,9 +73,10 @@ public class Recommend_Fragment extends BaseFragment {
             @Override
             public void onResponse(String result) {
                 Gson gson = new Gson();
-                SameCourse sameCourse = gson.fromJson(result, SameCourse.class);
+                sameCourse = gson.fromJson(result, SameCourse.class);
                 MyAdapter myAdapter = new MyAdapter(sameCourse);
                 lvRecommendFragment.setAdapter(myAdapter);
+                postComplated();
             }
 
         });
@@ -143,10 +151,29 @@ public class Recommend_Fragment extends BaseFragment {
 
     }
 
+    private void postComplated() {
+        Log.e(TAG, "postComplated: " + "加载完成事件");
+        Bundle bundle = new Bundle();
+        bundle.putInt("flag", 2);
+        EventBus.getDefault().post(new DataLoadComplatedEvent(bundle));
+    }
+
     @Override
     public int getLayoutResId() {
         return R.layout.fragment_recommend;
     }
 
 
+    private class MyOnItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            //准备跳转页面   需要kc_id  Kc_types
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", sameCourse.getSameCourse().get(0));
+
+            // tvXuankedetailTitle.setText("视频中心");
+            startActivity(VideoPlayActivity.class, bundle);
+            getActivity().finish();
+        }
+    }
 }

@@ -83,7 +83,7 @@ public class Details_Fragment extends BaseFragment {
                 Gson gson = new Gson();
                 CourseHandoutBean handoutBean = gson.fromJson(result, CourseHandoutBean.class);
                 lvFragmentDetailsJiangyi.setAdapter(new MyAdapter(handoutBean.getList()));
-              //  postComplated();
+               postComplated();
             }
         });
 

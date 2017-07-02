@@ -23,7 +23,7 @@ public class SameCourse {
      */
 
     private String kc_types;
-    private List<SameCourseBean> sameCourse;
+    private List<CourseBean> sameCourse;
 
     public String getKc_types() {
         return kc_types;
@@ -33,97 +33,13 @@ public class SameCourse {
         this.kc_types = kc_types;
     }
 
-    public List<SameCourseBean> getSameCourse() {
+    public List<CourseBean> getSameCourse() {
         return sameCourse;
     }
 
-    public void setSameCourse(List<SameCourseBean> sameCourse) {
+    public void setSameCourse(List<CourseBean> sameCourse) {
         this.sameCourse = sameCourse;
     }
 
-    public static class SameCourseBean {
-        /**
-         * kc_id : 120885
-         * title : 一级人力资源管理师（二）：招聘与配置
-         * img : http://www.chinaplat.com/CourseImg/IMG-20170413/20170413171493069306.jpg
-         * info : 人力资源管理一级（高级）考试第二章招聘与配置内容，课程由资深人力资源老师讲解，是以课本为章节顺序的精...
-         * money : 5000
-         * hot : 311
-         * keshi : 17
-         * teacher : 华图
-         */
 
-        private String kc_id;
-        private String title;
-        private String img;
-        private String info;
-        private String money;
-        private int hot;
-        private int keshi;
-        private String teacher;
-
-        public String getKc_id() {
-            return kc_id;
-        }
-
-        public void setKc_id(String kc_id) {
-            this.kc_id = kc_id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-
-        public void setInfo(String info) {
-            this.info = info;
-        }
-
-        public String getMoney() {
-            return money;
-        }
-
-        public void setMoney(String money) {
-            this.money = money;
-        }
-
-        public int getHot() {
-            return hot;
-        }
-
-        public void setHot(int hot) {
-            this.hot = hot;
-        }
-
-        public int getKeshi() {
-            return keshi;
-        }
-
-        public void setKeshi(int keshi) {
-            this.keshi = keshi;
-        }
-
-        public String getTeacher() {
-            return teacher;
-        }
-
-        public void setTeacher(String teacher) {
-            this.teacher = teacher;
-        }
-    }
 }
