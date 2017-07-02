@@ -37,7 +37,7 @@
         android:maxHeight="4dp"
         android:minHeight="4dp"
         android:progressDrawable="@drawable/cus_seekbar"
-        android:thumb="@mipmap/progress_cur"
+        android:thumb="@mipmap/video_progress_thumb"
         android:thumbOffset="0dp" />
 
     <TextView

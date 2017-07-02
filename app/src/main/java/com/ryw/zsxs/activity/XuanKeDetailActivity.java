@@ -315,12 +315,13 @@ public class XuanKeDetailActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //历史记录存储
                 String string = SpUtils.getString(mContext, Constant.HISTORYRECORD);
-                if (!string.contains(courseListBean.getCourse().get(i).getKc_id())) {
-                    SpUtils.putString(mContext, Constant.HISTORYRECORD, string + courseListBean.getCourse().get(i).getKc_id() + ",");
+                if (!string.contains(courseListBean.getCourse().get(i-1).getKc_id())) {
+                    SpUtils.putString(mContext, Constant.HISTORYRECORD, string + courseListBean.getCourse().get(i-1).getKc_id() + ",");
                 }
                 //准备跳转页面   需要kc_id  Kc_types
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", courseListBean.getCourse().get(i-1));
+                Log.e(TAG, "onItemClick:kcID "+courseListBean.getCourse().get(i-1).getKc_id() );
                 switch (types) {
                     case 0:
                         // tvXuankedetailTitle.setText("视频中心");

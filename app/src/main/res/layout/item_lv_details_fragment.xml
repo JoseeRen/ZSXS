@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-7-1 下午5:45
+  ~ FileName: item_lv_details_fragment.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_item_lv_handout_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:textColor="#666666"
+
+        android:text="企业人力资源管理师教材"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/ib_item_lv_handout_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/down_item" />
+</LinearLayout>

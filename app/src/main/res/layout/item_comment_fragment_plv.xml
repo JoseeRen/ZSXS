@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-7-2 上午8:09
+  ~ FileName: item_comment_fragment_plv.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+
+  评论的单个条目
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/iv_comment_fragment_uicon"
+        android:layout_width="76dp"
+        android:layout_height="72dp"
+        android:src="@mipmap/center_icon" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_commnet_fragment_uname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="昵称"
+            android:textColor="#f1c2bbbb"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_comment_fragment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="时间"
+            android:textColor="#f1c2bbbb"
+
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_comment_fragment_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_commnet_fragment_uname"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:text="评论"
+            android:textColor="#c1484646" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:src="#dad6d6" />
+    </RelativeLayout>
+</LinearLayout>

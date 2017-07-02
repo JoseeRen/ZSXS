@@ -91,7 +91,8 @@
         <activity android:name=".activity.ArticleDetailActivity" />
         <!--读书详情-->
         <activity android:name=".activity.BookDetailActivity" />
-
+        <!--读书目录-->
+        <activity android:name=".activity.BookCatalogActivity"/>
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"

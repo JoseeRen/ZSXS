@@ -11,8 +11,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <ListView
+        android:id="@+id/lv_recommend_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="推荐" />
+        android:layout_height="match_parent"></ListView>
 </LinearLayout>

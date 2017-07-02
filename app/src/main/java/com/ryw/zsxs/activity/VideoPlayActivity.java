@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,8 +26,8 @@ import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
 import com.ryw.zsxs.base.BaseFragment;
+import com.ryw.zsxs.bean.CourseBean;
 import com.ryw.zsxs.bean.CourseDetailBean;
-import com.ryw.zsxs.bean.CourseListBean;
 import com.ryw.zsxs.events.DataLoadComplatedEvent;
 import com.ryw.zsxs.fragment.Catalog_Fragment;
 import com.ryw.zsxs.fragment.Comment_Fragment;
@@ -134,10 +135,10 @@ public class VideoPlayActivity extends BaseActivity {
     private static final int MSG_UPDATE_BUFFER = 4;
     private static final int FAVORITE_RESULT = 5;
 
-    private CourseListBean.CourseBean course;
+    private CourseBean course;
     private String[] titles = {"目录", "详情", "推荐", "评论"};
     private ArrayList<BaseFragment> fragments;
-    private final String kc_types ="0";
+    private final String kc_types = "0";
     private CourseDetailBean.FilesBean filesBean;
     private MediaPlayer myMP;
     private CourseDetailBean courseInfo;
@@ -147,17 +148,15 @@ public class VideoPlayActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_HIDE_CONTROLLER:
+                    controllerHide();
                     break;
                 case MSG_UPDATE_BUFFER:
                     break;
                 case MSG_UPDATE_POSITION:
-                    long currentPosition = videoview.getCurrentPosition();
+                    sbVideoplayBottomProgress.setProgress((int) videoview.getCurrentPosition());
+                    tvVideoplayBottomPlaynowtime.setText(StringUtil.formatDuration((int) videoview.getCurrentPosition()));
 
-                    sbVideoplayBottomProgress.setProgress((int) currentPosition);
-                    //   Log.e(TAG, "handleMessage: "+videoview.getCurrentPosition() );
-                    tvVideoplayBottomPlaynowtime.setText(StringUtil.formatDuration((int) currentPosition));
-
-                    // handler.sendEmptyMessageDelayed(MSG_UPDATE_POSITION, 500);
+                    handler.sendEmptyMessageDelayed(MSG_UPDATE_POSITION, 500);
                     break;
                 case FAVORITE_RESULT:
                     Toast.makeText(VideoPlayActivity.this, mssg, Toast.LENGTH_SHORT).show();
@@ -165,7 +164,10 @@ public class VideoPlayActivity extends BaseActivity {
             }
         }
     };
-
+    private boolean isControllerShowing;
+    //控制器是否锁定
+    private boolean isLock = false;
+    private int nowPosition;
 
     @Override
     public int getContentViewResId() {
@@ -179,35 +181,28 @@ public class VideoPlayActivity extends BaseActivity {
         Vitamio.isInitialized(getApplicationContext());
         Bundle bundle = getIntent().getExtras();
         //获取到的课程详细
-        course = (CourseListBean.CourseBean) bundle.getSerializable("data");
+        course = (CourseBean) bundle.getSerializable("data");
         GetCourseInfo();
 
+        loading();
+
+        initViewPager();
+        initSeekBar();
+        initVideoview();
+        //7k 毫秒后隐藏控制器
+        handler.sendEmptyMessageDelayed(MSG_HIDE_CONTROLLER, 7000);
+    }
+
+    private void loading() {
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.loading_rotate);
         animation.start();
         ivFragmentCatalogLoading.setAnimation(animation);
-
-
-        setEnableOrNot(false);
-        initSeekBar();
-        initVideoview();
     }
 
-    private void GetCourseInfo() {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("kc_types", "0");
-        map.put("Action", "GetCourseInfo");
-        map.put("kc_id", course.getKc_id());
-        map.put("Acode", SpUtils.getString(mContext, LoginAcitvity.ACODE));
-        map.put("uid", SpUtils.getString(mContext, LoginAcitvity.USERNAME));
-        XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
-            @Override
-            public void onResponse(String result) {
-                Gson gson = new Gson();
-                courseInfo = gson.fromJson(result, CourseDetailBean.class);
-                initViewPager();
-            }
-        });
-
+    private void hideLoading() {
+        ivFragmentCatalogLoading.clearAnimation();
+        ivFragmentCatalogLoading.setVisibility(View.GONE);
+        vpVideoplay.setVisibility(View.VISIBLE);
     }
 
     private void initSeekBar() {
@@ -215,6 +210,9 @@ public class VideoPlayActivity extends BaseActivity {
         sbVideoplayBottomProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (!b) {
+                    return;
+                }
                 if (myMP != null) {
                     myMP.seekTo(i);
                 }
@@ -234,44 +232,29 @@ public class VideoPlayActivity extends BaseActivity {
 
     //初始化视频播放器
     private void initVideoview() {
-        videoview.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+        videoview.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                Log.e(TAG, "onInfo: " + what + "   extra" + extra);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                controllerShow();
+                handler.removeMessages(MSG_HIDE_CONTROLLER);
+                handler.sendEmptyMessageDelayed(MSG_HIDE_CONTROLLER, 7000);
                 return false;
             }
         });
+
+
         videoview.setOnPreparedListener(new playerPreparedListener());
-        videoview.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-            @Override
-            public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                if (percent < 99) {
-                    tvVideoplayCenterBufferpro.setVisibility(View.VISIBLE);
-                    tvVideoplayCenterBufferpro.setText(percent + "");
-                    setEnableOrNot(false);
-                } else {
-                    tvVideoplayCenterBufferpro.setVisibility(View.GONE);
-                    setEnableOrNot(true);
-                }
-            }
-        });
+        videoview.setOnBufferingUpdateListener(new MyOnBufferingUpdateListener());
     }
 
-    /**
-     * 加载时 按钮不能使用
-     */
-    private void setEnableOrNot(boolean enable) {
-        llVideoplayBottom.setEnabled(enable);
-        rlVideoplayCenter.setEnabled(enable);
-    }
 
     //初始化底下 的四个 fragment
     private void initViewPager() {
         fragments = new ArrayList<BaseFragment>();
         fragments.add(Catalog_Fragment.getInstance(course.getKc_id()));
-        fragments.add(Details_Fragment.getInstance());
-        fragments.add(Recommend_Fragment.getInstance());
-        fragments.add(Comment_Fragment.getInstance());
+        fragments.add(Details_Fragment.getInstance(course.getInfo(), course.getKc_id()));
+        fragments.add(Recommend_Fragment.getInstance(kc_types, course.getKc_id()));
+        fragments.add(Comment_Fragment.getInstance(course.getKc_id()));
 
         vpVideoplay.setAdapter(new MyPagerAdapter(getFragmentManager(), fragments));
 
@@ -284,10 +267,13 @@ public class VideoPlayActivity extends BaseActivity {
 
     @OnClick({R.id.ib_videoplay_top_collect, R.id.ib_videoplay_top_share, R.id.ib_videoplay_top_menu, R.id.ib_videoplay_center_lock, R.id.ib_videoplay_center_play, R.id.ib_videoplay_bottom_playorpause, R.id.tv_videoplay_bottom_playnowtime, R.id.sb_videoplay_bottom_progress, R.id.ib_videoplay_bottom_fullscreenorsmalscreen})
     public void onViewClicked(View view) {
-        //TODO   判断 是否登录 状态
         switch (view.getId()) {
 
             case R.id.ib_videoplay_top_collect:
+                if (!SpUtils.getBoolean(mContext, Constant.IS_LOGIN)) {
+                    Toast.makeText(mContext, "请先登录", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String kc_id = course.getKc_id();
 
                 //     http://api.chinaplat.com/getval_2017?Action=SaveFavorite&cid=140706&acode=02c1c3dacbbc74b67f5190df5bbcc735&Uid=18733502093
@@ -345,6 +331,20 @@ public class VideoPlayActivity extends BaseActivity {
                 break;
             case R.id.ib_videoplay_center_lock:
 
+                if (isLock) {
+                    //解锁操作
+                    isLock = false;
+                    ibVideoplayCenterLock.setBackgroundResource(R.mipmap.ic_unlock);
+                    llVideoplayBottom.setVisibility(View.VISIBLE);
+                } else {
+                    //锁定操作
+                    isLock = true;
+                    ibVideoplayCenterLock.setBackgroundResource(R.mipmap.ic_lock);
+
+
+                    llVideoplayBottom.setVisibility(View.INVISIBLE);
+
+                }
                 break;
             case R.id.ib_videoplay_center_play:
                 long currentPosition = videoview.getCurrentPosition();
@@ -355,13 +355,14 @@ public class VideoPlayActivity extends BaseActivity {
                     videoview.start();
 
                 }
-                handler.sendEmptyMessageDelayed(MSG_UPDATE_POSITION, 500);
 
 
                 break;
             case R.id.ib_videoplay_bottom_playorpause:
                 if (videoview.isPlaying()) {
                     videoview.pause();
+                    ibVideoplayCenterPlay.setVisibility(View.VISIBLE);
+
                     handler.removeMessages(MSG_UPDATE_POSITION);
                 } else {
 
@@ -370,7 +371,6 @@ public class VideoPlayActivity extends BaseActivity {
                     else {
                         myMP.start();
                     }
-                    handler.sendEmptyMessageDelayed(MSG_UPDATE_POSITION, 500);
 
                 }
                 break;
@@ -421,20 +421,34 @@ public class VideoPlayActivity extends BaseActivity {
         Log.e(TAG, "onDataLoadComplated: " + "收到事件完成");
 
         Bundle bundle = event.message;
-        String flag = bundle.getString("flag");
-        filesBean = (CourseDetailBean.FilesBean) bundle.getSerializable("file");
-        if ("play".equals(flag)) {
-            prePlayer(filesBean);
-        } else {
-            ivFragmentCatalogLoading.clearAnimation();
-            ivFragmentCatalogLoading.setVisibility(View.GONE);
-            vpVideoplay.setVisibility(View.VISIBLE);
+        int flag = bundle.getInt("flag");
+        if (flag == nowPosition) {
+            hideLoading();
         }
 
-        setEnableOrNot(true);
+        switch (flag) {
+            case 0:
+                filesBean = (CourseDetailBean.FilesBean) bundle.getSerializable("file");
 
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                filesBean = (CourseDetailBean.FilesBean) bundle.getSerializable("file");
+
+                prePlayer(filesBean);
+
+                break;
+
+
+        }
 
     }
+
 
     /**
      * 准备播放视频
@@ -455,7 +469,10 @@ public class VideoPlayActivity extends BaseActivity {
 
         @Override
         public void onPageSelected(int position) {
-            Log.e(TAG, "onPageSelected: " + position);
+            nowPosition = position;
+            loading();
+
+
         }
 
         @Override
@@ -470,20 +487,77 @@ public class VideoPlayActivity extends BaseActivity {
         public void onPrepared(MediaPlayer mp) {
             myMP = mp;
             Log.e(TAG, "onPrepared: " + "playerPreparedListener");
+            ibVideoplayCenterPlay.setVisibility(View.VISIBLE);
             boolean isPrepared = true;
             //设置视频的时间
             long duration = mp.getDuration();
             sbVideoplayBottomProgress.setMax((int) duration);
             tvVideoplayBottomPlaycounttime.setText(StringUtil.formatDuration((int) duration));
+            handler.sendEmptyMessageDelayed(MSG_UPDATE_POSITION, 500);
 
 
         }
     }
 
+    private void controllerShow() {
+        if (!isLock) {
+            llVideoplayBottom.setVisibility(View.VISIBLE);
+
+        }
+        llVideoplayTop.setVisibility(View.VISIBLE);
+        ibVideoplayCenterLock.setVisibility(View.VISIBLE);
+        isControllerShowing = true;
+    }
+
+    private void controllerHide() {
+        llVideoplayBottom.setVisibility(View.INVISIBLE);
+        llVideoplayTop.setVisibility(View.INVISIBLE);
+        rlVideoplayCenter.setVisibility(View.INVISIBLE);
+        isControllerShowing = false;
+    }
+
+
+    private void GetCourseInfo() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("kc_types", "0");
+        map.put("Action", "GetCourseInfo");
+        map.put("kc_id", course.getKc_id());
+        map.put("Acode", SpUtils.getString(mContext, LoginAcitvity.ACODE));
+        map.put("uid", SpUtils.getString(mContext, LoginAcitvity.USERNAME));
+        XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                Gson gson = new Gson();
+                courseInfo = gson.fromJson(result, CourseDetailBean.class);
+
+            }
+        });
+
+    }
+
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        handler.removeCallbacksAndMessages(null);
+        if (myMP!=null&&myMP.isPlaying()){
+            myMP.stop();
+        }
+        if (videoview!=null){
+            videoview.stopPlayback();
+        }
         super.onDestroy();
 
+    }
+
+    private class MyOnBufferingUpdateListener implements MediaPlayer.OnBufferingUpdateListener {
+        @Override
+        public void onBufferingUpdate(MediaPlayer mp, int percent) {
+            if (percent < 99) {
+                tvVideoplayCenterBufferpro.setVisibility(View.VISIBLE);
+                tvVideoplayCenterBufferpro.setText(percent + "");
+            } else {
+                tvVideoplayCenterBufferpro.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 }

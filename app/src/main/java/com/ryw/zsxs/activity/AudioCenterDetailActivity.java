@@ -13,9 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.ryw.zsxs.R;
-import com.ryw.zsxs.base.BaseActivity;
-import com.ryw.zsxs.base.BaseFragment;
-import com.ryw.zsxs.bean.CourseListBean;
+import com.ryw.zsxs.bean.CourseBean;
 import com.ryw.zsxs.fragment.Base_Fragment;
 import com.ryw.zsxs.fragment.Kecheng_Fragment;
 import com.ryw.zsxs.fragment.Xiangqing_Fragment;
@@ -24,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Mr_Shadow on 2017/6/25.
@@ -61,7 +58,7 @@ public class AudioCenterDetailActivity extends FragmentActivity {
         Intent  intent = getIntent();
         Bundle bundle = intent.getExtras();
         //获取到的课程详细
-        CourseListBean.CourseBean data = (CourseListBean.CourseBean) bundle.getSerializable("data");
+        CourseBean data = (CourseBean) bundle.getSerializable("data");
         initData();
     }
 
