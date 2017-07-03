@@ -4,16 +4,14 @@ package com.ryw.zsxs.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -59,7 +57,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     Button btnRegister;//注册按钮
     @BindView(R.id.register_btn_yanzhengma)
     Button registerBtnYanzhengma;//获取验证码的按钮
-
+    @BindView(R.id.cb_register_xieyi)
+    CheckBox cbRegisterXieyi;
 
 
     private boolean ISPWDLOOK = true;
@@ -148,21 +147,23 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     } else {
                         shuruYZM = registerEtYanzhengma.getText().toString().trim();
                         //TODO 有问题？？？？？？？？？？？
-                        Log.e("shuruyzm", shuruYZM + "22222222");
                         if (!shuruYZM.equals(yanzhengma)) {
-
-                            //yanzhengma赋值在229行
-
-                            Log.e("shuruyzm", shuruYZM + "333333333");
-                            Toast.makeText(mContext, "手机验证码不对", Toast.LENGTH_SHORT).show();
-
-                        } else {
                             if (TextUtils.isEmpty(pwd)) {
                                 Toast.makeText(mContext, "请输入密码", Toast.LENGTH_SHORT).show();
                             } else {
-                                ecode = MD5utils.encode(pwd);
-                                FromNetRegister(number, ecode);//连接服务器注册
+                                if (cbRegisterXieyi.isChecked()) {
+                                    ecode = MD5utils.encode(pwd);
+                                    FromNetRegister(number, ecode);//连接服务器注册
+                                } else {
+                                    Toast.makeText(mContext, "请阅读并同意协议", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                             }
+                            //yanzhengma赋值在229行
+
+
+                        } else {
+                            Toast.makeText(mContext, "手机验证码不对", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -188,15 +189,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(mContext, "注册成功", Toast.LENGTH_SHORT).show();
                     String TuiJianCode = registerBean.Mycode;
 
-                    SpUtils.putString(mContext,Constant.MYCODE,TuiJianCode);//TODO 有可能有问题
+                    SpUtils.putString(mContext, Constant.MYCODE, TuiJianCode);//TODO 有可能有问题
 
 
                     Intent intent = new Intent(mContext, LoginAcitvity.class);
                     startActivity(intent);
+                    /*注册完成finish掉*/
+                    finish();
                 } else {
                     Toast.makeText(mContext, registerBean.errorMessage, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(mContext, LoginAcitvity.class);
-                    startActivity(intent);
+
                 }
 
             }
@@ -257,6 +259,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public int randomInt(int from, int to) {
         Random r = new Random();
         return from + r.nextInt(to - from);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
 

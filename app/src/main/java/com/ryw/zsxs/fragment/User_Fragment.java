@@ -127,7 +127,6 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
             "12", "关于中仕"};
 
 
-
     public static User_Fragment getInstance() {
         if (instance == null) {
             instance = new User_Fragment();
@@ -205,7 +204,7 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
                 tvUserTitle.setText(userInfoBean.Nicename);
                 tvUserMyjifen.setText(userInfoBean.Jifen);
                 tvUserMyxuebi.setText(userInfoBean.Money);
-                tvUserMyxueshi.setText(userInfoBean.xueshi+"");
+                tvUserMyxueshi.setText(userInfoBean.xueshi + "");
             }
         });
     }
@@ -303,6 +302,8 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
                 startActivity(userAccount_intent);
                 break;
             case R.id.btn_user_back:
+                /*让已经登录失效*/
+                SpUtils.putBoolean(mContext, Constant.IS_LOGIN, false);
                 // 点击退出跳转到登录页面
                 Intent login_intent = new Intent(mContext, LoginAcitvity.class);
                 startActivity(login_intent);
@@ -341,7 +342,7 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
     private class LvitemOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-            switch (position){
+            switch (position) {
                 case 1:
                     Intent intent1 = new Intent(mContext, MyCollect.class);
                     startActivity(intent1);

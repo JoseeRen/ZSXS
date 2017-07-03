@@ -3,8 +3,8 @@
     android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <LinearLayout style="@style/usercenter_header_llbkg">
 
@@ -18,75 +18,77 @@
     </LinearLayout>
 
     <EditText
-        android:padding="7dp"
+        android:id="@+id/register_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:drawablePadding="5dp"
         android:background="@null"
-        android:hint="给自己起个个性的昵称吧"
         android:drawableLeft="@mipmap/zhuce_nickname_icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/register_nickname"/>
-    <View
-        android:layout_marginTop="5dp"
-        android:background="#dadada"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-    <EditText
-        android:padding="7dp"
-        android:layout_marginTop="10dp"
         android:drawablePadding="5dp"
-        android:background="@null"
-        android:hint="填写11位手机号，其他用户不可见"
-        android:drawableLeft="@mipmap/zhuce_shouji_icon"
+        android:hint="给自己起个个性的昵称吧"
+        android:padding="7dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#dadada" />
+
+    <EditText
+        android:id="@+id/register_phonenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/register_phonenumber"/>
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:drawableLeft="@mipmap/zhuce_shouji_icon"
+        android:drawablePadding="5dp"
+        android:hint="填写11位手机号，其他用户不可见"
+        android:padding="7dp" />
+
     <View
-        android:layout_marginTop="5dp"
-        android:background="#dadada"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#dadada" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <EditText
+            android:id="@+id/register_et_yanzhengma"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp"
-            android:gravity="center_vertical">
-            <EditText
-                android:padding="7dp"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="5dp"
-                android:background="@null"
-                android:hint="手机验证码"
-                android:drawableLeft="@mipmap/zhuce_shouji_yanzheng"
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:id="@+id/register_et_yanzhengma"/>
+            android:layout_marginTop="10dp"
+            android:layout_weight="3"
+            android:background="@null"
+            android:drawableLeft="@mipmap/zhuce_shouji_yanzheng"
+            android:drawablePadding="5dp"
+            android:hint="手机验证码"
+            android:padding="7dp" />
 
-            <Button
+        <Button
 
-                android:gravity="center"
-                android:id="@+id/register_btn_yanzhengma"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@mipmap/green_back"
-                android:layout_marginRight="30dp"
-                android:text="获取验证码"
-                android:textColor="#fff" />
-        </LinearLayout>
-
-
+            android:id="@+id/register_btn_yanzhengma"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@mipmap/green_back"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="#fff" />
+    </LinearLayout>
 
 
     <View
-        android:layout_marginTop="5dp"
-        android:background="#dadada"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#dadada" />
     <!--<EditText-->
     <!--android:id="@+id/et_register_pwd"-->
     <!--android:inputType="textPassword"-->
@@ -105,74 +107,76 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        >
+        android:layout_marginRight="20dp">
 
         <EditText
             android:id="@+id/et_register_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:drawableLeft="@mipmap/zhuce_mima_icon"
+            android:drawablePadding="5dp"
+            android:hint="6-14个字母或数字，不允许出现空格"
             android:inputType="textPassword"
             android:maxLength="16"
             android:maxLines="1"
             android:padding="7dp"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="5dp"
-            android:background="@null"
-            android:hint="6-14个字母或数字，不允许出现空格"
-            android:drawableLeft="@mipmap/zhuce_mima_icon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            />
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/iv_register_pwdlook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_centerVertical="true"
-            android:paddingRight="10dp"
-            android:src="@mipmap/zhuce_mima_bukejian"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:paddingRight="10dp"
+            android:src="@mipmap/zhuce_mima_bukejian" />
     </RelativeLayout>
-    <View
-        android:layout_marginTop="5dp"
-        android:background="#dadada"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-    <EditText
-        android:padding="7dp"
-        android:layout_marginTop="10dp"
-        android:drawablePadding="5dp"
-        android:background="@null"
-        android:hint="推荐码（选填）"
-        android:drawableLeft="@mipmap/zhuce_tuijian_ma_icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <View
-        android:layout_marginTop="5dp"
-        android:background="#dadada"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-    <CheckBox
 
-        android:layout_margin="10dp"
-        android:paddingLeft="20dp"
-        android:background="@null"
-        android:textSize="18sp"
-        android:textColor="#2c831f"
-        android:text="阅读并接受协议"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#dadada" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:drawableLeft="@mipmap/zhuce_tuijian_ma_icon"
+        android:drawablePadding="5dp"
+        android:hint="推荐码（选填）"
+        android:padding="7dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#dadada" />
+
+    <CheckBox
+        android:id="@+id/cb_register_xieyi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:paddingLeft="20dp"
+        android:text="阅读并接受协议"
+        android:textColor="#2c831f"
+        android:textSize="18sp" />
+
     <Button
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textColor="#fff"
-        android:background="@mipmap/fasong_back"
-        android:textSize="18sp"
-        android:text="注册"
+        android:id="@+id/btn_register"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_register"/>
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/fasong_back"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="#fff"
+        android:textSize="18sp" />
 </LinearLayout>
