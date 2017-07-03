@@ -4,7 +4,7 @@ package com.ryw.zsxs.bean;
  * Created by Zhao on 2017/6/30.
  */
 
-public class About {
+public class AboutBean {
     private String logo;
 
     private String content;
