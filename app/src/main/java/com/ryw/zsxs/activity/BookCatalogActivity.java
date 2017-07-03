@@ -19,13 +19,18 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
 import com.ryw.zsxs.bean.BookCatalogBean;
+import com.ryw.zsxs.downloadmanager.BookContentDownloader;
 import com.ryw.zsxs.utils.XutilsHttp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,8 +53,13 @@ public class BookCatalogActivity extends BaseActivity {
     @BindView(R.id.ll_bookcatalog_down)
     LinearLayout llBookcatalogDown;
     private boolean download;
+    private BookCatalogBean bookCatalogBean;
+    boolean allSelected = false;
+    private MyAdapter myAdapter;
+    private List<BookCatalogBean.Index1Bean.Index2Bean> downloadList = new ArrayList<BookCatalogBean.Index1Bean.Index2Bean>();
 
     @Override
+
     public int getContentViewResId() {
         return R.layout.activity_bookcatalog;
     }
@@ -61,15 +71,26 @@ public class BookCatalogActivity extends BaseActivity {
         if ("download".equals(from)) {
             //下载
             download = true;
-           lvExpandBookcatalog.getRefreshableView().setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-               @Override
-               public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                   Log.e(TAG, "onChildClick: "+"条目单击" );
+            lvExpandBookcatalog.getRefreshableView().setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                    Log.e(TAG, "onChildClick: " + "条目单击");
+                    CheckBox cb = view.findViewById(R.id.cb_expand_group_download);
+                    if (cb.isChecked()) {
+                        cb.setChecked(false);
+                        downloadList.remove(bookCatalogBean.getIndex_1().get(i).getIndex_2().get(i1));
 
+                        Log.e(TAG, "onChildClick: " + "不选中" + downloadList.size());
+                    } else {
+                        Log.e(TAG, "onChildClick: " + "已选中" + downloadList.size());
+                        downloadList.add(bookCatalogBean.getIndex_1().get(i).getIndex_2().get(i1));
 
-                 return false;
-               }
-           });
+                        cb.setChecked(true);
+                    }
+                    updataDownloadCount();
+                    return false;
+                }
+            });
         } else {
             //查看
             download = false;
@@ -83,14 +104,21 @@ public class BookCatalogActivity extends BaseActivity {
 
     }
 
+    /**
+     * 更新显示下载的按钮
+     */
+    private void updataDownloadCount() {
+        btnBookcatalogDownDownload.setText("下载(" + downloadList.size() + ")");
+    }
+
     private void getDataFromNet(String kcId) {
         String url = "http://api.chinaplat.com/getval_2017?Action=getBookIndexs&kc_id=" + kcId;
         XutilsHttp.getInstance().get(url, null, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 Gson gson = new Gson();
-                BookCatalogBean bookCatalogBean = gson.fromJson(result, BookCatalogBean.class);
-                MyAdapter myAdapter = new MyAdapter(bookCatalogBean);
+                bookCatalogBean = gson.fromJson(result, BookCatalogBean.class);
+                myAdapter = new MyAdapter(bookCatalogBean);
                 lvExpandBookcatalog.getRefreshableView().setAdapter(myAdapter);
                 //默认展开
                 for (int i = 0; i < bookCatalogBean.getIndex_1().size(); i++) {
@@ -192,6 +220,8 @@ public class BookCatalogActivity extends BaseActivity {
                 holderChild.cbExpandGroupDownload.setVisibility(View.INVISIBLE);
             }
 
+            holderChild.cbExpandGroupDownload.setChecked(allSelected);
+
 
             return view;
 
@@ -258,8 +288,40 @@ public class BookCatalogActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_bookcatalog_down_selectall:
+                if (allSelected) {
+                    allSelected = false;
+                    downloadList.clear();
+                    btnBookcatalogDownSelectall.setText("全选");
+                } else {
+                    downloadList.clear();
+
+                    btnBookcatalogDownSelectall.setText("取消全选");
+                    for (int i = 0; i < bookCatalogBean.getIndex_1().size(); i++) {
+                        downloadList.addAll(bookCatalogBean.getIndex_1().get(i).getIndex_2());
+                    }
+                    allSelected = true;
+                }
+                updataDownloadCount();
+                for (int i = 0; i < bookCatalogBean.getIndex_1().size(); i++) {
+                    lvExpandBookcatalog.getRefreshableView().collapseGroup(i);
+                    lvExpandBookcatalog.getRefreshableView().expandGroup(i);
+
+                }
                 break;
             case R.id.btn_bookcatalog_down_download:
+                if (downloadList == null || downloadList.size() == 0) {
+                    Toast.makeText(mContext, "请选择要下载的项目", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        BookContentDownloader.downloadBook(mContext,bookCatalogBean.getKc_id(),downloadList);
+
+                    }
+                }).start();
+                Toast.makeText(mContext, "已加入到下载队列", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginTop="100dp"
-            android:background="@mipmap/spinner_76_inner_holo" />
+            android:background="@drawable/spinner_76_inner_holo" />
 
     </RelativeLayout>
 

@@ -394,7 +394,7 @@ public class XuanKeDetailActivity extends BaseActivity {
                 if (lvAdapter == null) {
 
                     courseListBean = gson.fromJson(result, CourseListBean.class);
-                    pageCount = Integer.parseInt(courseListBean.getPage_all());
+                    pageCount = Integer.parseInt(courseListBean.getPage_all()==null?"0":courseListBean.getPage_all());
                     lvAdapter = new LvAdapter(courseListBean);
                     pullXuankedetailListivew.setAdapter(lvAdapter);
 
