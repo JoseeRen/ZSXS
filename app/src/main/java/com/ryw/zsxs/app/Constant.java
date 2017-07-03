@@ -16,6 +16,9 @@ package com.ryw.zsxs.app;
 public class Constant {
     public static final String SAVE_AD_PATH = MyApplication.getInstance().getFilesDir().getPath() + "/app_hy1.jpg";
     public static final String IS_LOGIN = "is_Login";
+    public static final String PWD = "pwd";
+    public static final String UID = "uid";
+
     //已购课程
     public static final String BUYEDCLASS = "BUYEDCLASS";
     //历史记录
@@ -57,7 +60,7 @@ public class Constant {
      * pwd登录时应该为小写
      */
     public static String ACONDE = "02c1c3dacbbc74b67f5190df5bbcc735";
-    public static String PWD = "938ca204b9830d430f419c1553db00c4";
+    public static String PWDmd5 = "938ca204b9830d430f419c1553db00c4";
     public static String MYCODE = "1164151";
     public static String USERNAME = "18733502093";
 
