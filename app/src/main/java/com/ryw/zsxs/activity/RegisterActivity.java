@@ -30,7 +30,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
@@ -146,7 +145,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         Toast.makeText(mContext, "请输入验证码", Toast.LENGTH_SHORT).show();
                     } else {
                         shuruYZM = registerEtYanzhengma.getText().toString().trim();
-                        //TODO 有问题？？？？？？？？？？？
                         if (!shuruYZM.equals(yanzhengma)) {
                             if (TextUtils.isEmpty(pwd)) {
                                 Toast.makeText(mContext, "请输入密码", Toast.LENGTH_SHORT).show();
@@ -189,7 +187,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(mContext, "注册成功", Toast.LENGTH_SHORT).show();
                     String TuiJianCode = registerBean.Mycode;
 
-                    SpUtils.putString(mContext, Constant.MYCODE, TuiJianCode);//TODO 有可能有问题
+                    SpUtils.putString(mContext, Constant.MYCODE, TuiJianCode);
 
 
                     Intent intent = new Intent(mContext, LoginAcitvity.class);
@@ -261,12 +259,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         return from + r.nextInt(to - from);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
 
     /*实现按钮上面时间的变化*/
