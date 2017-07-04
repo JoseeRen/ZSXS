@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 学识收支布局 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout style="@style/usercenter_header_llbkg">
@@ -14,4 +14,15 @@
             style="@style/usercenter_header_title"
             android:text="学识收支记录" />
     </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ptf_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrDrawable="@mipmap/xlistview_arrow"
+        android:listSelector="@android:color/transparent">
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
 </LinearLayout>

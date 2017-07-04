@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Y.Q on 2017/6/25.
  */
 
-public class JiFenBean {
+public class XueBiBean {
 
 
     /**

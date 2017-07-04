@@ -115,12 +115,11 @@ public class WoYaoZhengDing extends BaseActivity implements View.OnClickListener
             XutilsHttp.getInstance().get(Constant.HOSTNAME, hashMap, new XutilsHttp.XCallBack() {
                 @Override
                 public void onResponse(String result) {
+
                     Dialog dialog = new Dialog(mContext);
                     dialog.setContentView(R.layout.woyaozhengding_duhuakuang);
 
                     Window dialogWindow = dialog.getWindow();
-
-
 
                     WindowManager m = getWindowManager();
                     Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
