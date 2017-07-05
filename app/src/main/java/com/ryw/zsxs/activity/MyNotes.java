@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -109,6 +110,10 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
                 Gson gson = new Gson();
                 MyNotesBean myNotesBean = gson.fromJson(result, MyNotesBean.class);
                 course = myNotesBean.courselist;
+                if (course.size() == 0) {
+                    //TODO 有问题
+                    Toast.makeText(mContext, "你还没有笔记喔", Toast.LENGTH_LONG).show();
+                }
                 if (myPagerAdapter == null) {
 
                     mynotesLvAdapter = new MyNotesLvAdapter();

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
@@ -168,6 +169,10 @@ public class CursorZhengDing extends BaseActivity implements View.OnClickListene
                 Gson gson = new Gson();
                 gerenCursor = gson.fromJson(result, ZhengDingGeRenBean.class);
                 gerensublist = gerenCursor.subList;
+                if (gerensublist.size() == 0) {
+                    //TODO 有问题
+                    Toast.makeText(mContext, "你还没有征订喔", Toast.LENGTH_LONG).show();
+                }
                 if (zhengDingPagerAdapter == null) {
                     zhengDingPagerAdapter = new ZhengDingPagerAdapter();
                     zdGeRenLvAdapter = new ZDGeRenLvAdapter();

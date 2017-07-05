@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -96,11 +98,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.iv_register_pwdlook:
                 if (ISPWDLOOK) {
                     ivRegisterPwdlook.setImageResource(R.mipmap.zhuce_mima_kejian);
-                    etRegisterPwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+
+
+                    etRegisterPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+
+
                     ISPWDLOOK = false;
+
                 } else {
                     ivRegisterPwdlook.setImageResource(R.mipmap.zhuce_mima_bukejian);
-                    etRegisterPwd.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    etRegisterPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
                     ISPWDLOOK = true;
                 }
                 break;
@@ -157,7 +165,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                     return;
                                 }
                             }
-                            //yanzhengma赋值在229行
+
 
 
                         } else {

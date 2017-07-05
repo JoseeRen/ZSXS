@@ -110,7 +110,7 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
                 Gson gson = new Gson();
                 MyCollectBean myCollectBean = gson.fromJson(result, MyCollectBean.class);
                 course = myCollectBean.Course;
-                if (course == null) {
+                if (course.size() == 0) {
                     //TODO 有问题
                     Toast.makeText(mContext, "你还没有收藏喔", Toast.LENGTH_LONG).show();
                 }

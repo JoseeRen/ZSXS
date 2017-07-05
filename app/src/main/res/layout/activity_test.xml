@@ -6,7 +6,7 @@
     <LinearLayout style="@style/usercenter_header_llbkg">
 
         <ImageView
-            android:id="@+id/help_back"
+            android:id="@+id/mytest_back"
             style="@style/usercenter_header_ivback" />
 
         <TextView

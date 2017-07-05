@@ -3,9 +3,11 @@ package com.ryw.zsxs.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.utils.NetworkUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +35,22 @@ public class ZuZhiAndSchool extends BaseActivity {
     }
 
     private void initData() {
-
+        /*Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };*/
+        int netWorkType = NetworkUtil.getNetWorkType(mContext);
+        if (netWorkType == 0){
+            Toast.makeText(mContext,"网络没有连接",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(mContext,"请稍等",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initEvent() {

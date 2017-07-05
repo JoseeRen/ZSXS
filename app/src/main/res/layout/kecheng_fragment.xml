@@ -48,6 +48,7 @@
         android:id="@+id/kecheng_fragment_lv">
 
     </ListView>
+    
 
 
 </LinearLayout>
