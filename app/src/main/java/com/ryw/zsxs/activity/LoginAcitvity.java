@@ -35,6 +35,7 @@ public class LoginAcitvity extends BaseActivity {
     public static final int IS_ERROR = 1;
     public static final String ACODE = "acode";
     public static final String USERNAME = "username";
+    public static final String PWD = "pwd";
 
     @BindView(R.id.tv_login_register)
     TextView tvLoginRegister;
@@ -88,6 +89,8 @@ public class LoginAcitvity extends BaseActivity {
                 public void onResponse(String result) {
                     Gson gson = new Gson();
                     LoginBean loginBean = gson.fromJson(result, LoginBean.class);
+                    Log.e(TAG, "onResponse:MD5utils "+MD5utils.encode(password) );
+                    SpUtils.putString(mContext,PWD,MD5utils.encode(password));
                     SpUtils.putString(mContext, ACODE, loginBean.acode);
                     SpUtils.putString(mContext, USERNAME, loginBean.username);
                     Toast.makeText(LoginAcitvity.this, "登录成功", Toast.LENGTH_LONG).show();

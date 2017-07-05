@@ -1,28 +1,27 @@
 package com.ryw.zsxs.activity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.bean.JiFenBean;
 import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
 
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Y.Q on 2017/6/23.
@@ -34,6 +33,9 @@ public class UserJifenActivity extends BaseActivity  {
     ImageView ivUserjifenBack;
     @BindView(R.id.ptf_listview)
     PullToRefreshListView ptfListview;
+
+    private List<JiFenBean.ListBean> jifenlist;
+    private MyPtfAdapter myPtfAdapter;
 
     @Override
     public int getContentViewResId() {
@@ -57,10 +59,67 @@ public class UserJifenActivity extends BaseActivity  {
             @Override
             public void onResponse(String result) {
                 Log.e(TAG, "onResponse: "+result );
-                //Gson gson = new Gson();
-               // gson.fromJson();
+                Gson gson = new Gson();
+                JiFenBean jiFenBean = gson.fromJson(result, JiFenBean.class);
+                jifenlist = jiFenBean.list;
+                Log.e(TAG, "onResponse---------- "+jifenlist.size() );
+
+                if (jifenlist.size()==0){
+                    Toast.makeText(UserJifenActivity.this,"当前没有数据",Toast.LENGTH_SHORT).show();
+                }
+                myPtfAdapter = new MyPtfAdapter();
+                ptfListview.setAdapter(myPtfAdapter);
             }
         });
+
+    }
+
+    class MyPtfAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return jifenlist.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = View.inflate(mContext, R.layout.item_shouzhi, null);
+                holder = new ViewHolder();
+                holder.tv_shouzhi_title=convertView.findViewById(R.id.tv_shouzhi_title);
+                holder.tv_shouzhi_shijian=convertView.findViewById(R.id.tv_shouzhi_shijian);
+                holder.tv_shouzhi_shouzhi=convertView.findViewById(R.id.tv_shouzhi_shouzhi);
+                holder.tv_shouzhi_jifen=convertView.findViewById(R.id.tv_shouzhi_jifen);
+                convertView.setTag(holder);
+            }else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.tv_shouzhi_title.setText(jifenlist.get(position).getTitle());
+            holder.tv_shouzhi_shijian.setText(jifenlist.get(position).getAddtime()+"");
+            holder.tv_shouzhi_shouzhi.setText(jifenlist.get(position).getShouzhi()+"");
+            holder.tv_shouzhi_jifen.setText(jifenlist.get(position).getMoney()+"");
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            public TextView tv_shouzhi_title,
+                    tv_shouzhi_shijian,
+                    tv_shouzhi_shouzhi,
+                    tv_shouzhi_jifen;
+        }
 
     }
 
@@ -75,6 +134,4 @@ public class UserJifenActivity extends BaseActivity  {
         });
 
     }
-
-
 }

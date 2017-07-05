@@ -43,8 +43,11 @@
         <activity android:name=".activity.UserXueshiActivity"/>
         <!--中仕个人中心 消息中心-->
         <activity android:name=".activity.UserMessageActivity"/>
+        <activity android:name=".activity.UserMessageCenter"/>
         <!--中仕个人中心 推荐有礼-->
         <activity android:name=".activity.UserShareActivity"/>
+        <activity android:name=".activity.HuoQuMiJiActivity"/>
+        <activity android:name=".activity.MyErweimaActivity"/>
         <!--中仕个人中心 账户中心-->
         <activity android:name=".activity.UserAccountActivity"/>
         <!--个人信息页面 昵称页面-->
