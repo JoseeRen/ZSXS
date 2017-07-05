@@ -169,6 +169,7 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
         final ImageOptions options = new ImageOptions.Builder()
                 .setUseMemCache(true)
                 .setIgnoreGif(true)
+                .setCircular(true)
                 .build();
         HashMap<String, String> hashmap = new HashMap<>();
         hashmap.put("Action", "getUserInfo");

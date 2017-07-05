@@ -50,6 +50,7 @@
         <activity android:name=".activity.MyErweimaActivity"/>
         <!--中仕个人中心 账户中心-->
         <activity android:name=".activity.UserAccountActivity"/>
+        <activity android:name=".activity.ExchangeActivity"/>
         <!--个人信息页面 昵称页面-->
 
         <activity android:name=".activity.MyCollect"/> <!--个人中心    我的收藏-->

@@ -35,17 +35,21 @@
             android:padding="10dp">
 
             <LinearLayout
+                android:id="@+id/ll_useraccount_txandname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rb_my_center_normal" />
+                    android:id="@+id/iv_useraccount_tx"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/rb_my_center_normal"
+                    android:scaleType="centerCrop"/>
 
                 <TextView
+                    android:id="@+id/tv_useraccount_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -67,6 +71,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_useraccount_jf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="228"
@@ -82,6 +87,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_useraccount_exchange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -109,6 +115,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_useraccount_xb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="228"
@@ -134,6 +141,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_useraccount_jfsz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -147,6 +155,7 @@
                 android:background="@mipmap/base_horizontal_line" />
 
             <TextView
+                android:id="@+id/tv_useraccount_xbsz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -160,6 +169,7 @@
                 android:background="@mipmap/base_horizontal_line" />
 
             <TextView
+                android:id="@+id/tv_useraccount_ljxs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -178,10 +188,12 @@
             android:padding="10dp">
 
             <LinearLayout
+                android:id="@+id/ll_useraccount_czkh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -192,28 +204,32 @@
                     android:textSize="15sp" />
 
                 <ImageView
+                    android:id="@+id/iv_useraccount_khjt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/buttom_smart" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_useraccount_kh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#C5C1AA"
+                android:background="#C5C1CC"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <EditText
+                    android:id="@+id/et_useraccount_kh"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
+                    android:background="@drawable/edit_bg"
                     android:hint="请输入充值卡号"
                     android:textColor="#000"
                     android:textSize="15sp" />
 
                 <Button
+                    android:id="@+id/bt_useraccount_khcz"
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:background="@mipmap/no_sign_back"
@@ -237,10 +253,12 @@
             android:padding="10dp">
 
             <LinearLayout
+                android:id="@+id/ll_useraccount_zfb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -251,28 +269,32 @@
                     android:textSize="15sp" />
 
                 <ImageView
+                    android:id="@+id/iv_useraccount_zfbjt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/buttom_smart" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_useraccount_zfbcz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#C5C1AA"
+                android:background="#C5C1CC"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <EditText
+                    android:id="@+id/et_useraccount_zfjb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
+                    android:background="@drawable/edit_bg"
                     android:hint="请输入充值学币金额"
                     android:textColor="#000"
                     android:textSize="15sp" />
 
                 <Button
+                    android:id="@+id/bt_useraccount_zfbcz"
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:background="@mipmap/no_sign_back"
@@ -295,10 +317,12 @@
             android:padding="10dp">
 
             <LinearLayout
+                android:id="@+id/ll_useraccount_wx"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -309,28 +333,32 @@
                     android:textSize="15sp" />
 
                 <ImageView
+                    android:id="@+id/iv_useraccount_wxjt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/buttom_smart" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_useraccount_wxcz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#C5C1AA"
+                android:background="#C5C1CC"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <EditText
+                    android:id="@+id/et_useraccount_wxjb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
+                    android:background="@drawable/edit_bg"
                     android:hint="请输入充值学币金额"
                     android:textColor="#000"
                     android:textSize="15sp" />
 
                 <Button
+                    android:id="@+id/bt_useraccount_wxcz"
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:background="@mipmap/no_sign_back"
