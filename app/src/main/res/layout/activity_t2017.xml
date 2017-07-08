@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:background="#315031"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/home_2017_back"
+            android:paddingLeft="10dp"
+            android:drawableLeft="@mipmap/back"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:text="考试达人"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/iv"
+        android:background="@mipmap/huandengpian"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <ListView
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/home_20172_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </ListView>
+
+</LinearLayout>

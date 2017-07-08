@@ -75,6 +75,7 @@
                         android:layout_height="0dp" />
 
                     <TextView
+                        android:id="@+id/home_2_text"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         style="@style/homefragment2017"
@@ -97,6 +98,7 @@
                         android:layout_height="0dp" />
 
                     <TextView
+                        android:id="@+id/home_0_text"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         style="@style/homefragment2017"
@@ -119,6 +121,7 @@
                         android:layout_height="0dp" />
 
                     <TextView
+                        android:id="@+id/home_1_text"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         style="@style/homefragment2017"
@@ -141,6 +144,7 @@
                         android:layout_height="0dp" />
 
                     <TextView
+                        android:id="@+id/home_7_text"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         style="@style/homefragment2017"
@@ -223,12 +227,16 @@
                             android:padding="5dp">
 
                             <ImageView
+                                android:id="@+id/home_baifenbi_iv1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="3"
                                 android:src="@mipmap/home_kzdr" />
 
                             <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/home_baifenbi_tv1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
@@ -244,12 +252,16 @@
                             android:padding="5dp">
 
                             <ImageView
+                                android:id="@+id/home_baifenbi_iv2"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="3"
                                 android:src="@mipmap/home_kzdr" />
 
                             <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/home_baifenbi_tv2"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
@@ -265,12 +277,16 @@
                             android:padding="5dp">
 
                             <ImageView
+                                android:id="@+id/home_baifenbi_iv3"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="3"
                                 android:src="@mipmap/home_kzdr" />
 
                             <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/home_baifenbi_tv3"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"

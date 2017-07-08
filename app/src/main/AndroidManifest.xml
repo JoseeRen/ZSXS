@@ -74,6 +74,8 @@
 
         <!--2017跳转页面-->
         <activity android:name=".activity.ksdrActivity" />
+        <!--2017-2跳转页面-->
+        <activity android:name=".activity.T20172Activity" />
         <!--搜索页面-->
         <activity android:name=".activity.SearchActivity" />
         <!--视频播放-->

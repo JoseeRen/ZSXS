@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/home_20172_picture"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:background="@mipmap/guodu_icon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        >
+
+        <TextView
+            android:id="@+id/home_20172_tv1"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="18dp"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:text="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:id="@+id/home_20172_tv2"
+                android:drawableLeft="@mipmap/keshi_smart"
+                android:gravity="center"
+                android:text="111"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/home_20172_tv3"
+                android:gravity="center"
+                android:drawableLeft="@mipmap/jifen_smart"
+                android:text="111"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/home_20172_tv4"
+                android:drawableLeft="@mipmap/dianjiliang_smart"
+                android:gravity="center"
+                android:text="111"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
