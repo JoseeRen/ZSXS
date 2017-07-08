@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.T20172Activity;
 import com.ryw.zsxs.activity.ksdrActivity;
 import com.ryw.zsxs.base.BaseFragment;
@@ -32,6 +33,7 @@ import com.ryw.zsxs.bean.GetCourse100;
 import com.ryw.zsxs.bean.GetZTBean;
 import com.ryw.zsxs.bean.GetZTShow;
 import com.ryw.zsxs.bean.GetslidesBean;
+import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
 
 import java.util.List;
@@ -274,6 +276,7 @@ public class Home_Fragment extends BaseFragment {
 
         @Override
         public void onPageSelected(int position) {
+
             //当页面选中的时候点变为红色
             homeLl.getChildAt(position).setEnabled(true);
             //吧前一个选中的点重新改为白色
@@ -301,18 +304,31 @@ public class Home_Fragment extends BaseFragment {
             XutilsHttp.getInstance().bindCommonImage(iv, picurl, false);
             container.addView(iv);
             iv.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
+                    //判断type
+                    if (slideslist.get(position).getPictype().equals("app")){
+
+
                     //图片的点击事件
                     String url="http://api.chinaplat.com/getval_2017?Action=getZTShow&Types="+slideslist.get(position).getPictype()+"&ztid="+slideslist.get(position).getPicURL();
-
                     XutilsHttp.getInstance().get(url, null, new XutilsHttp.XCallBack() {
                         @Override
                         public void onResponse(String result) {
                             //解析数据轮播图
                             parsedatel3(result);
+
                         }
                     });
+                    }else{
+                        String picURL = slideslist.get(position).getPicURL()+"?acode="+SpUtils.getString(mContext, LoginAcitvity.ACODE)+"&uid="+SpUtils.getString(mContext, LoginAcitvity.USERNAME);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("url",picURL);
+
+
+
+                    }
                 }
             });
             return iv;
