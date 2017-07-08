@@ -43,8 +43,8 @@ public class Setting extends BaseActivity implements View.OnClickListener{
     @BindView(R.id.setting_update)
     TextView settingUpdate;
 
-    private boolean BOFANGISCLICK;
-    private boolean XIAZAIISCLICK;
+    private boolean BOFANGISCLICK=false;
+    private boolean XIAZAIISCLICK=false;
 
     @Override
     public int getContentViewResId() {
@@ -59,25 +59,30 @@ public class Setting extends BaseActivity implements View.OnClickListener{
 
     }
 
-    private void initData() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //写在onStart() 方法里面  一般配合服务使用 下载东西一般关闭页面也会下载  所以用服务去下载
+        //服务可以手动关闭 所以一般在页面可见的时候判断 这些东西是  打开还是关闭
+        //如果服务关闭 记得再次 存入下变量的值
         BOFANGISCLICK = SpUtils.getBoolean(mContext, "bofangtixing");
         XIAZAIISCLICK = SpUtils.getBoolean(mContext,"xiazaitixing");
-
+        //只获取false还是true  来判断显示的图片信息  不改变变量的值
         if (XIAZAIISCLICK){
             settingXiazaitixing.setBackgroundResource(R.mipmap.iv_press);
-            XIAZAIISCLICK = false;
         }else {
             settingXiazaitixing.setBackgroundResource(R.mipmap.iv_nomal);
-            XIAZAIISCLICK = true;
         }
 
         if (BOFANGISCLICK){
             settingBofangtixing.setBackgroundResource(R.mipmap.iv_press);
-            BOFANGISCLICK = false;
         }else {
             settingBofangtixing.setBackgroundResource(R.mipmap.iv_nomal);
-            BOFANGISCLICK = true;
         }
+
+    }
+
+    private void initData() {
 
         String availMemory = getAvailMemory();
 
@@ -158,25 +163,29 @@ public class Setting extends BaseActivity implements View.OnClickListener{
 
     private void BoFangtixing() {
         if (BOFANGISCLICK){
-            settingBofangtixing.setBackgroundResource(R.mipmap.iv_press);
+            settingBofangtixing.setBackgroundResource(R.mipmap.iv_nomal);
             BOFANGISCLICK = false;
         }else {
-            settingBofangtixing.setBackgroundResource(R.mipmap.iv_nomal);
+            settingBofangtixing.setBackgroundResource(R.mipmap.iv_press);
             BOFANGISCLICK = true;
         }
         SpUtils.putBoolean(mContext,"bofangtixing",BOFANGISCLICK);
-
     }
 
     private void XiaZaitixing() {
+        //判断变量的值  如果为真
         if (XIAZAIISCLICK){
-            settingXiazaitixing.setBackgroundResource(R.mipmap.iv_press);
+            //为真   刚开始获取数据为真  表示显示的是选中状态
+            // 所以当值为真  改变为非选中状态  改变图片  改变值
+            settingXiazaitixing.setBackgroundResource(R.mipmap.iv_nomal);
             XIAZAIISCLICK = false;
         }else {
-            settingXiazaitixing.setBackgroundResource(R.mipmap.iv_nomal);
+            //为假   刚开始获取数据为假  表示显示的是非选中状态
+            // 所以当值为假  改变为选中状态  改变图片  改变值
+            settingXiazaitixing.setBackgroundResource(R.mipmap.iv_press);
             XIAZAIISCLICK = true;
         }
+        //存入
         SpUtils.putBoolean(mContext,"xiazaitixing",XIAZAIISCLICK);
-
     }
 }
