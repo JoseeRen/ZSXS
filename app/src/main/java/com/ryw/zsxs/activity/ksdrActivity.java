@@ -1,12 +1,15 @@
 package com.ryw.zsxs.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
@@ -40,7 +43,9 @@ public class ksdrActivity extends BaseActivity {
 
     private List<GetZTBean.ListBean> getztlist;
     private GetZTBean getztBean;
-
+    private int pageNow = 1;
+    private int pageCount = 1;
+    private String url2017;
 
     @Override
     public int getContentViewResId() {
@@ -51,6 +56,7 @@ public class ksdrActivity extends BaseActivity {
     @Override
     public void init(Bundle savedInstanceState) {
         initdata();
+        initlistview();
         initevent();
     }
 
@@ -59,16 +65,10 @@ public class ksdrActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //返回上一页
+                finish();
+            }
+        });
 
-            }
-        });
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //list的条目点击事件
-                getDatainternet(i);
-            }
-        });
     }
 
     private void getDatainternet(int i) {
@@ -96,13 +96,12 @@ public class ksdrActivity extends BaseActivity {
 
     private void initdata() {
         Bundle bundle = getIntent().getExtras();
+        url2017 = bundle.getString("url");
         String title = bundle.getString("title");
         home2017Back.setText(title);
         getztBean = (GetZTBean) bundle.getSerializable("getztBean");
         getztlist = getztBean.getList();
-        initlistview();
         list.setAdapter(new MyAdatper());
-
     }
 
     private void initlistview() {
@@ -113,9 +112,53 @@ public class ksdrActivity extends BaseActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //20171list的条目点击事件
+                getDatainternet(i);
 
             }
         });
+
+        list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        list.onRefreshComplete();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                android.util.Log.e(TAG, "onPullUpToRefresh: ");
+                if (pageNow == pageCount) {
+                    Toast.makeText(mContext, "没有更多了", Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            list.onRefreshComplete();
+                        }
+                    }, 1000);
+                    return;
+                }
+              XutilsHttp.getInstance().get(url2017, null, new XutilsHttp.XCallBack() {
+                  @Override
+                  public void onResponse(String result) {
+                      //解析数据
+                      Gson gson = new Gson();
+                      GetZTBean getslidesBean = gson.fromJson(result, GetZTBean.class);
+                      getztlist = getslidesBean.getList();
+                      list.setAdapter(new MyAdatper());
+                      pageNow++;
+                      list.onRefreshComplete();
+
+                  }
+              });
+
+            }
+        });
+
     }
 
     private void inittext() {

@@ -211,22 +211,23 @@ public class Home_Fragment extends BaseFragment {
 
 
     private void getDatainternet(int i) {
-        String url = "http://api.chinaplat.com/getval_2017?Action=GetZT&Types=" + i;
+        final String url = "http://api.chinaplat.com/getval_2017?Action=GetZT&Types=" + i;
         XutilsHttp.getInstance().get(url, null, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 //解析数据2017
-                parsedatell(result);
+                parsedatell(result,url);
             }
         });
 
     }
 
     //2017数据的解析
-    private void parsedatell(String result) {
+    private void parsedatell(String result,String url) {
         Gson gson = new Gson();
         GetZTBean getslidesBean = gson.fromJson(result, GetZTBean.class);
         Bundle bundle = new Bundle();
+        bundle.putString("url",url);
         bundle.putString("title", text2017);
         bundle.putSerializable("getztBean", getslidesBean);
         startActivity(ksdrActivity.class, bundle);

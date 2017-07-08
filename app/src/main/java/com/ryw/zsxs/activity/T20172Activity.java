@@ -3,14 +3,18 @@ package com.ryw.zsxs.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.bean.CourseListBean;
 import com.ryw.zsxs.bean.GetZTShow;
+import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
 
 import java.io.Serializable;
@@ -33,6 +37,7 @@ public class T20172Activity extends BaseActivity {
     @BindView(R.id.home_2017_back)
     TextView home2017Back;
     private List<GetZTShow.CourseBean> list;
+    private GetZTShow getZTShowBean;
 
     @Override
     public int getContentViewResId() {
@@ -46,20 +51,41 @@ public class T20172Activity extends BaseActivity {
     }
 
     private void initevent() {
+        //返回事件
+        home2017Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //返回上一页
+                finish();
 
+            }
+        });
     }
 
     private void initdata() {
         Bundle bundle = getIntent().getExtras();
 
-        GetZTShow getZTShowBean = (GetZTShow) bundle.getSerializable("getZTShowBean");
+        getZTShowBean = (GetZTShow) bundle.getSerializable("getZTShowBean");
         String zTtitle = getZTShowBean.getZTtitle();
         list = getZTShowBean.getCourse();
         home2017Back.setText(zTtitle);
         String imgURL = getZTShowBean.getImgURL();
         XutilsHttp.getInstance().bindCommonImage(iv, imgURL, false);
         home20172List.setAdapter(new MyAdapter());
-
+        home20172List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //历史记录存储
+                String string = SpUtils.getString(mContext, Constant.HISTORYRECORD);
+                if (!string.contains(list.get(i).getKc_id())) {
+                    SpUtils.putString(mContext, Constant.HISTORYRECORD, string + getZTShowBean.getCourse().get(i).getKc_id() + ",");
+                }
+                //准备跳转页面   需要kc_id  Kc_types
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", list.get(i));
+                startActivity(VideoPlayActivity.class, bundle);
+            }
+        });
 
 
     }
