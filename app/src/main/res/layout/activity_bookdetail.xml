@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-7-2 上午11:57
+  ~ FileName: activity_bookdetail.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layoutFooter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#315031">
+
+        <ImageButton
+            android:id="@+id/ibbbback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:background="@mipmap/back"
+            android:onClick="back" />
+
+        <TextView
+            android:id="@+id/tv_bookdetail_activity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/ibbbback"
+            android:text="读书课程标题"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_bookdetail_activity_bookimg"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/tushu" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_bookdetail_activity_bookname"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:maxLines="1"
+                    android:text="ps cs5新手教程 书名"
+                    android:textColor="#bb000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_bookdetail_activity_upload"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:drawableLeft="@mipmap/dushu_upload_smart"
+                    android:text="上传：中值"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_bookdetail_activity_dianjiliang"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@mipmap/dianjiliang_smart"
+                    android:text="点击：541"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:drawableLeft="@mipmap/jifen_smart"
+                        android:text="价格："
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_bookdetail_activity_jifen"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="100积分"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/btn_bookdetail_activity_read"
+
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.03"
+                android:background="@drawable/buttonstyle"
+                android:padding="0dp"
+                android:text="立即阅读"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/btn_bookdetail_activity_download"
+
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="35dp"
+                android:layout_weight="0.03"
+                android:background="@drawable/buttonstyle"
+                android:padding="0dp"
+                android:text="下载缓存"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/btn_bookdetail_activity_addcollect"
+
+                android:layout_width="80dp"
+
+                android:layout_height="35dp"
+                android:layout_marginLeft="35dp"
+                android:layout_weight="0.03"
+                android:background="@drawable/buttonstyle"
+                android:padding="0dp"
+                android:text="加入收藏"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+
+        android:layout_height="1dp"
+        android:src="#d6d0d0" />
+
+    <RadioGroup
+        android:id="@+id/rg_bookdetail_activity"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="0"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="10dp">
+
+        <RadioButton
+            android:id="@+id/rb_bookdetail_activity_detail"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="详情"
+            android:textColor="@drawable/rb_textcolor_selector"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rb_bookdetail_activity_comment"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="评论(0)"
+            android:textColor="@drawable/rb_textcolor_selector"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_bookdetail_activity_tag0"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/tab_tag" />
+
+        <ImageView
+            android:id="@+id/iv_bookdetail_activity_tag1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/tab_tag"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bookdetail_activity_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF0F0F0"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="内容简介"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_bookdetail_activity_bookinfo"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:text="一杯非常详细的图文教程，对于新手绝对是个定期哦！还在等什么呢？"
+            android:textSize="16sp" />
+
+        <ImageView
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:src="#55e6dfdf" />
+
+        <Button
+            android:id="@+id/btn_bookdetail_activity_bookcatalog"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="查看书籍目录"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:text="用户还喜欢" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bookdetail_activity_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF0F0F0"
+        android:visibility="gone" >
+
+        <include layout="@layout/fragment_comment" />
+
+    </LinearLayout>
+</LinearLayout>

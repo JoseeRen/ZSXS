@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -99,13 +100,20 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
         hashmap.put("Action", "getNotesCourse");
         hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
         hashmap.put("Uid", SpUtils.getString(mContext,LoginAcitvity.USERNAME));
-        hashmap.put("Kc_types", i+"");//这里的课程id需要获取
+//        hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");
+//        hashmap.put("Uid", "18733513882");
+
+        hashmap.put("Kc_types", i+"");//
         XutilsHttp.getInstance().get(Constant.HOSTNAME, hashmap, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 Gson gson = new Gson();
                 MyNotesBean myNotesBean = gson.fromJson(result, MyNotesBean.class);
                 course = myNotesBean.courselist;
+                if (course.size() == 0) {
+                    //TODO 有问题
+                    Toast.makeText(mContext, "你还没有笔记喔", Toast.LENGTH_LONG).show();
+                }
                 if (myPagerAdapter == null) {
 
                     mynotesLvAdapter = new MyNotesLvAdapter();
@@ -115,6 +123,7 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
                     mynotesVp.setAdapter(myPagerAdapter);
                 } else {
                     mynotesLvAdapter.notifyDataSetChanged();
+
                 }
             }
         });
@@ -122,10 +131,24 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()){
             case R.id.back:
                 finish();
                 break;
+            case R.id.mynotes_rb_shipin:
+                mynotesVp.setCurrentItem(0);
+                FromNet(0);
+                break;
+            case R.id.mynotes_rb_yinpin:
+                mynotesVp.setCurrentItem(1);
+                FromNet(1);
+                break;
+            case R.id.mynotes_rb_dushu:
+                mynotesVp.setCurrentItem(2);
+                FromNet(2);
+                break;
+
         }
     }
 
@@ -140,6 +163,7 @@ public class MyNotes extends BaseActivity implements View.OnClickListener {
         @Override
         public void onPageSelected(int position) {
             mynotes_rb.get(position).setChecked(true);
+            FromNet(position);
         }
 
         @Override

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-7-2 下午3:52
+  ~ FileName: activity_bookcatalog.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c3ede5e5"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#315031">
+
+        <ImageButton
+            android:id="@+id/ibbbback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:background="@mipmap/back"
+            android:onClick="back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/ibbbback"
+            android:text="目录"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_bookcatalog_bookname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="PS CS5新手教程"
+        android:textColor="#000"
+        android:textSize="20sp" />
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="#dad7d7" />
+    <com.handmark.pulltorefresh.library.PullToRefreshExpandableListView
+        android:id="@+id/lv_expand_bookcatalog"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></com.handmark.pulltorefresh.library.PullToRefreshExpandableListView>
+
+    <LinearLayout
+        android:id="@+id/ll_bookcatalog_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_bookcatalog_down_selectall"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:text="全选"
+            android:textColor="#d2cdcd"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:src="#ece7e7" />
+
+        <Button
+            android:id="@+id/btn_bookcatalog_down_download"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:background="#fff"
+            android:text="下载"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -18,44 +18,51 @@ import java.util.Enumeration;
  */
 
 public class SpUtils {
-    private   static final String NAMESPACE="namespace";
+    private static final String NAMESPACE = "namespace";
 
     private static SharedPreferences sp;
-    public static  void putString(Context context, String key, String value){
-          if(sp==null){
+
+    public static void putString(Context context, String key, String value) {
+        if (sp == null) {
+            sp = context.getSharedPreferences(NAMESPACE, Context.MODE_PRIVATE);
+
+        }
+        sp.edit().putString(key, value).commit();
     }
-         sp.edit().putString(key,value).commit();
-    }
-    public static String getString(Context context,String key){
-        if(sp==null){
-            sp=context.getSharedPreferences(NAMESPACE,Context.MODE_PRIVATE);
+
+    public static String getString(Context context, String key) {
+        if (sp == null) {
+            sp = context.getSharedPreferences(NAMESPACE, Context.MODE_PRIVATE);
         }
         String s = sp.getString(key, "");
         return s;
     }
-    public static void putInt(Context context,String key,int value){
-        if(sp==null){
+
+    public static void putInt(Context context, String key, int value) {
+        if (sp == null) {
             sp = context.getSharedPreferences(NAMESPACE, Context.MODE_PRIVATE);
         }
-        sp.edit().putInt(key,value).commit();
+        sp.edit().putInt(key, value).commit();
     }
-    public static int getInt(Context context,String key){
-        if(sp==null){
-            sp=context.getSharedPreferences(NAMESPACE,Context.MODE_PRIVATE);
+
+    public static int getInt(Context context, String key) {
+        if (sp == null) {
+            sp = context.getSharedPreferences(NAMESPACE, Context.MODE_PRIVATE);
         }
         int b = sp.getInt(key, 0);
         return b;
     }
 
-    public static void putBoolean(Context context,String key,boolean value){
-        if(sp==null){
+    public static void putBoolean(Context context, String key, boolean value) {
+        if (sp == null) {
             sp = context.getSharedPreferences(NAMESPACE, Context.MODE_PRIVATE);
         }
-         sp.edit().putBoolean(key,value).commit();
+        sp.edit().putBoolean(key, value).commit();
     }
-    public static boolean getBoolean(Context context,String key){
-        if(sp==null){
-            sp=context.getSharedPreferences(NAMESPACE,Context.MODE_PRIVATE);
+
+    public static boolean getBoolean(Context context, String key) {
+        if (sp == null) {
+            sp = context.getSharedPreferences(NAMESPACE, Context.MODE_PRIVATE);
         }
         boolean b = sp.getBoolean(key, false);
         return b;

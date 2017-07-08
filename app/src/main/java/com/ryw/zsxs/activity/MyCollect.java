@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
@@ -98,8 +99,8 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
 
         HashMap<String, String> hashmap = new HashMap<>();
         hashmap.put("Action", "getFavorite");
-         hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
-        hashmap.put("Uid",SpUtils.getString(mContext,LoginAcitvity.USERNAME));
+        hashmap.put("acode", SpUtils.getString(mContext, LoginAcitvity.ACODE));
+        hashmap.put("Uid", SpUtils.getString(mContext, LoginAcitvity.USERNAME));
         //hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
         //hashmap.put("Uid", "18733513882");
         hashmap.put("types", i + "");
@@ -109,6 +110,10 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
                 Gson gson = new Gson();
                 MyCollectBean myCollectBean = gson.fromJson(result, MyCollectBean.class);
                 course = myCollectBean.Course;
+                if (course.size() == 0) {
+                    //TODO 有问题
+                    Toast.makeText(mContext, "你还没有收藏喔", Toast.LENGTH_LONG).show();
+                }
                 if (myPagerAdapter == null) {
 
                     myCollectLvAdapter = new MyCollectLvAdapter();
@@ -116,13 +121,16 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
 
                     myPagerAdapter = new MyPagerAdapter();
                     mycollectVp.setAdapter(myPagerAdapter);
+
                 } else {
                     myCollectLvAdapter.notifyDataSetChanged();
+
                 }
 
 
             }
         });
+
 
     }
 
@@ -178,6 +186,7 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
 
             FromNet(position);
 
+
         }
 
         @Override
@@ -216,12 +225,14 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
 
+
         }
 
 
     }
 
     class MyCollectLvAdapter extends BaseAdapter {//listview的监听
+
         @Override
         public int getCount() {
             return course.size();
@@ -264,6 +275,7 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
             holder.tv_info_item_xuankedetail_pv.setText(course.get(position).info);
             holder.tv_jifen_item_xuankedetail_pv.setText(course.get(position).money + "");
             holder.tv_dianjiliang_item_xuankedetail_pv.setText(course.get(position).hot + "");
+
 
             return view;
         }

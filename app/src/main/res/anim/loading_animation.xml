@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-7-3 下午12:13
+  ~ FileName: loading_animation.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/spinner_76_inner_holo"
+    android:duration="50"
+    android:fromDegrees="0.0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="360.0" />

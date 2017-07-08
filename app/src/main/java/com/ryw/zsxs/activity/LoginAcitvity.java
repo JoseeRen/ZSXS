@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.ryw.zsxs.utils.XutilsHttp;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -34,6 +36,7 @@ public class LoginAcitvity extends BaseActivity {
     public static final int IS_ERROR = 1;
     public static final String ACODE = "acode";
     public static final String USERNAME = "username";
+    public static final String PWD = "pwd";
 
     @BindView(R.id.tv_login_register)
     TextView tvLoginRegister;
@@ -47,6 +50,8 @@ public class LoginAcitvity extends BaseActivity {
     TextView tvLoginFindPass;
     @BindView(R.id.back)
     TextView back;
+    @BindView(R.id.cb_login_remberpwd)
+    CheckBox cbLoginRemberpwd;
 
 
     private String username;
@@ -60,7 +65,8 @@ public class LoginAcitvity extends BaseActivity {
 
     @Override
     public void init(Bundle savedInstanceState) {
-
+        etLoginName.setText(TextUtils.isEmpty(SpUtils.getString(mContext, Constant.UID)) ? "" : SpUtils.getString(mContext, Constant.UID));
+        etLoginPass.setText(TextUtils.isEmpty(SpUtils.getString(mContext, Constant.PWD)) ? "" : SpUtils.getString(mContext, Constant.PWD));
     }
 
 
@@ -84,12 +90,19 @@ public class LoginAcitvity extends BaseActivity {
                 public void onResponse(String result) {
                     Gson gson = new Gson();
                     LoginBean loginBean = gson.fromJson(result, LoginBean.class);
+                    Log.e(TAG, "onResponse:MD5utils "+MD5utils.encode(password) );
+                    SpUtils.putString(mContext,PWD,MD5utils.encode(password));
                     SpUtils.putString(mContext, ACODE, loginBean.acode);
-                    Log.e("zhaogui",loginBean.acode+"bbbbbbbbbbbbbb");
                     SpUtils.putString(mContext, USERNAME, loginBean.username);
                     Toast.makeText(LoginAcitvity.this, "登录成功", Toast.LENGTH_LONG).show();
                     SpUtils.putBoolean(LoginAcitvity.this, Constant.IS_LOGIN, true);
-
+                    if (cbLoginRemberpwd.isChecked()) {
+                        SpUtils.putString(LoginAcitvity.this, Constant.PWD, password);
+                        SpUtils.putString(LoginAcitvity.this, Constant.UID, username);
+                    } else {
+                        SpUtils.putString(LoginAcitvity.this, Constant.PWD, "");
+                        SpUtils.putString(LoginAcitvity.this, Constant.UID, "");
+                    }
                     finish();
                 }
             });
@@ -125,7 +138,10 @@ public class LoginAcitvity extends BaseActivity {
     }
 
 
-
-
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

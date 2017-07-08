@@ -1,5 +1,6 @@
 package com.ryw.zsxs.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,6 +20,9 @@ import com.google.gson.Gson;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.bean.CourseBean;
+import com.ryw.zsxs.bean.CourseListBean;
+import com.ryw.zsxs.bean.MyNotesBean;
 import com.ryw.zsxs.bean.MyProblemBean;
 import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
@@ -101,8 +105,8 @@ public class MyProblem extends BaseActivity implements View.OnClickListener {
         hashmap.put("Action", "getMyQuestion");
          hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
         hashmap.put("Uid",SpUtils.getString(mContext,LoginAcitvity.USERNAME));
-        //hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
-        //hashmap.put("Uid", "18733513882");
+//        hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
+//        hashmap.put("Uid", "18733513882");
         hashmap.put("Kc_types", i + "");
         XutilsHttp.getInstance().get(Constant.HOSTNAME, hashmap, new XutilsHttp.XCallBack() {
             @Override
@@ -111,10 +115,15 @@ public class MyProblem extends BaseActivity implements View.OnClickListener {
                 MyProblemBean myProblemBean = gson.fromJson(result, MyProblemBean.class);
 
                 course = myProblemBean.list;
+
+                if (course.size() == 0) {
+                    //TODO 有问题
+                    Toast.makeText(mContext, "你还没有答疑喔", Toast.LENGTH_LONG).show();
+                }
+
                 if (myPagerAdapter == null) {
 
                     myProblemLvAdapter = new MyProblem.MyProblemLvAdapter();
-
 
                     myPagerAdapter = new MyProblem.MyPagerAdapter();
                     myproblemVp.setAdapter(myPagerAdapter);
@@ -238,7 +247,7 @@ public class MyProblem extends BaseActivity implements View.OnClickListener {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             MyProblem.MyProblemLvAdapter.ViewHolder holder = null;
             View view;
@@ -252,7 +261,16 @@ public class MyProblem extends BaseActivity implements View.OnClickListener {
                 holder.chakancourse.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(mContext,"查看课程视频",Toast.LENGTH_LONG).show();
+                        /*CourseListBean courseBean = new CourseListBean();
+
+
+                        Bundle bundle = new Bundle();
+
+                        bundle.putSerializable("data", courseBean.getCourse().get(position-1));
+
+                        startActivity(VideoPlayActivity.class,bundle);*/
+
+
                     }
                 });
                 view.setTag(holder);

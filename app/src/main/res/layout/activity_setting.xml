@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout style="@style/usercenter_header_llbkg"
+        >
+
+        <ImageView style="@style/usercenter_header_ivback"
+            android:id="@+id/setting_back"/>
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="设置" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:paddingTop="30dp"
+        android:layout_marginTop="14dp"
+
+        >
+        <TextView
+
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="开启非wifi播放提醒"
+            android:textColor="#000"
+
+            />
+
+        <Button
+            android:id="@+id/setting_bofangtixing"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/iv_press"
+           android:layout_marginRight="8dp"
+
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/my_center_line"/>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+
+        >
+        <TextView
+            android:padding="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="允许非wifi下载"
+            android:textColor="#000"
+            />
+
+        <Button
+            android:id="@+id/setting_xiazaitixing"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/iv_press"
+            android:layout_marginRight="8dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:background="#fff">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="手机存储"
+            android:layout_marginLeft="8dp"
+            android:textColor="#FFA9DF8C"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/setting_total"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="总量920M/"
+                android:layout_marginLeft="8dp"
+                android:textColor="#000"/>
+            <TextView
+                android:id="@+id/setting_shengyu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="剩余920M"
+                android:layout_marginLeft="8dp"
+                android:textColor="#000"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/btn_check_buttonless_on"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="其他"
+            android:textColor="#FFD7D7D7"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:background="#fff"
+
+            android:textSize="15sp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/my_center_line"/>
+
+        <TextView
+            android:id="@+id/setting_clear"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="清除缓存"
+            android:textColor="#000"
+            android:layout_marginLeft="8dp"
+            android:background="#fff"
+            android:gravity="center_vertical"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/my_center_line"/>
+
+        <TextView
+            android:id="@+id/setting_update"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="检查更新V1.4.3"
+            android:textColor="#000"
+            android:layout_marginLeft="8dp"
+            android:background="#fff"
+            android:gravity="center_vertical"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

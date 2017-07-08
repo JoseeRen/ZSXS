@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 
+import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
 
 /**
@@ -16,7 +17,7 @@ public class MyJiFen extends BaseActivity {
 
     @Override
     public int getContentViewResId() {
-        return 0;
+        return R.layout.activity_jifenshangcheng;
     }
 
     @Override

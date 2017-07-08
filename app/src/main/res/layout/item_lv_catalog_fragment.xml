@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-6-27 下午6:13
+  ~ FileName: item_lv_catalog_fragment.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:touchscreenBlocksFocus="false">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_lv_catologfragment_filestitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="[第1节]1.1劳动经济学的研究对象和方法."
+            android:textColor="#000" />
+
+        <ImageView
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@mipmap/mulu_play" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_item_lv_catologfragment_shiting"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:drawableTop="@mipmap/shiting_smart"
+        android:focusable="false"
+        android:text="试听"
+        android:textColor="#000"
+        android:visibility="invisible" />
+
+</LinearLayout>

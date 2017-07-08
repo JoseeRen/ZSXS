@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff">
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView style="@style/usercenter_header_ivback"
+            android:id="@+id/aboutzx_back"/>
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="关于中仕" />
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/aboutzx_wv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>

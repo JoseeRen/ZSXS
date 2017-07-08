@@ -59,4 +59,17 @@
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="MyDialog">
+      <!--  <item>?unknown_ref: 106000d</item>
+        <item>?unknown_ref: 0</item>
+        <item>true</item>
+        <item>?unknown_ref: 0</item>
+        <item>16sp</item>
+        <item>#ff555555</item>
+        <item>?unknown_ref: 1030002</item>
+        <item>true</item>
+        <item name="android:textSize">20sp</item>-->
+    </style>
+
+
 </resources>

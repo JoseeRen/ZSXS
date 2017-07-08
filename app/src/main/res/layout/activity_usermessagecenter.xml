@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/iv_usermessage_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="消息中心" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/msg_unred" />
+
+        <TextView
+            android:id="@+id/tv_messagecenter_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="2222222222222222"
+            android:textColor="#000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_messagecenter_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22222222222222222222222222222222222222222222222222222222222222222" />
+
+        <TextView
+            android:id="@+id/tv_messagecenter_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="2016-01-01" />
+    </LinearLayout>
+</LinearLayout>

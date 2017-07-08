@@ -35,11 +35,12 @@
 
                 <ImageView
                     android:id="@+id/iv_user_usermessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_below="@id/tv_user_title"
                     android:layout_centerHorizontal="true"
-                    android:background="@mipmap/center_icon" />
+                    android:src="@mipmap/center_icon"
+                    android:scaleType="centerCrop"/>
 
                 <ImageView
                     android:id="@+id/iv_user_login"
@@ -71,6 +72,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_user_myjifen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2700"
@@ -102,12 +104,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-
                         android:orientation="vertical"
 
                         >
 
                         <TextView
+                            android:id="@+id/tv_user_myxuebi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="123"
@@ -144,6 +146,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_user_myxueshi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2700"

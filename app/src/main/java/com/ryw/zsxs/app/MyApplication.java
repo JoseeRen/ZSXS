@@ -9,9 +9,14 @@
 package com.ryw.zsxs.app;
 
 import android.app.Application;
+import android.os.Environment;
+import android.util.Log;
 
 import org.xutils.BuildConfig;
+import org.xutils.DbManager;
 import org.xutils.x;
+
+import java.io.File;
 
 /**
  * Created by Mr_Shadow on 2017/6/8.
@@ -23,7 +28,10 @@ public class MyApplication extends Application {
     public MyApplication() {
         myApplication = this;
     }
-
+    private DbManager.DaoConfig daoConfig;
+    public DbManager.DaoConfig getDaoConfig() {
+        return daoConfig;
+    }
     public static synchronized MyApplication getInstance() {
         if (myApplication == null) {
             myApplication = new MyApplication();
@@ -42,6 +50,18 @@ public class MyApplication extends Application {
      * 配置数据库
      */
     private void setupDatabase() {
+        Log.e("Application", "setupDatabase: " );
+        daoConfig=new DbManager.DaoConfig()
+                .setDbName("db")
+                .setDbVersion(1)
+                .setAllowTransaction(true)
+                .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+                    @Override
+                    public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
 
+                    }
+                });
     }
+
+
 }

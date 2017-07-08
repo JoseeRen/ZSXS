@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Create on 2017-6-27 下午4:49
+  ~ FileName: vpi__tab_textcolor_indicator.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+  -->
+<!--文字颜色  -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Non focused states -->
+    <item android:state_focused="false" android:state_selected="false" android:state_pressed="false" android:color="#FFAFAFAF" />
+    <item android:state_focused="false" android:state_selected="true"  android:state_pressed="false" android:color="#588b58" />
+
+    <!-- Focused states -->
+    <item android:state_focused="true" android:state_selected="false" android:state_pressed="false" android:color="#FFAFAFAF" />
+    <item android:state_focused="true" android:state_selected="true"  android:state_pressed="false" android:color="#588b58" />
+
+    <!-- Pressed -->
+    <!--    Non focused states -->
+    <item android:state_focused="false" android:state_selected="false" android:state_pressed="true" android:color="#FFAFAFAF" />
+    <item android:state_focused="false" android:state_selected="true"  android:state_pressed="true" android:color="#588b58" />
+
+    <!--    Focused states -->
+    <item android:state_focused="true" android:state_selected="false" android:state_pressed="true" android:color="#FFAFAFAF" />
+    <item android:state_focused="true" android:state_selected="true"  android:state_pressed="true" android:color="#588b58" />
+</selector>

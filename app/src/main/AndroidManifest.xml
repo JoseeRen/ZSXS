@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -41,22 +43,29 @@
         <activity android:name=".activity.UserXueshiActivity"/>
         <!--中仕个人中心 消息中心-->
         <activity android:name=".activity.UserMessageActivity"/>
+        <activity android:name=".activity.UserMessageCenter"/>
         <!--中仕个人中心 推荐有礼-->
         <activity android:name=".activity.UserShareActivity"/>
+        <activity android:name=".activity.HuoQuMiJiActivity"/>
+        <activity android:name=".activity.MyErweimaActivity"/>
         <!--中仕个人中心 账户中心-->
         <activity android:name=".activity.UserAccountActivity"/>
+        <activity android:name=".activity.ExchangeActivity"/>
         <!--个人信息页面 昵称页面-->
 
-        <activity android:name=".activity.MyCollect"/>
-        <activity android:name=".activity.MyNotes"/>
-        <activity android:name=".activity.MyProblem"/>
-        <activity android:name=".activity.CursorZhengDing"/>
-        <activity android:name=".activity.MyJiFen"/>
-        <activity android:name=".activity.MyTest"/>
-        <activity android:name=".activity.ZuZhiAndSchool"/>
-        <activity android:name=".activity.Help"/>
-        <activity android:name=".activity.Setting"/>
-        <activity android:name=".activity.AboutZX" />
+        <activity android:name=".activity.MyCollect"/> <!--个人中心    我的收藏-->
+        <activity android:name=".activity.MyNotes"/><!--个人中心    我的笔记-->
+        <activity android:name=".activity.MyProblem"/><!--个人中心    我的答疑-->
+        <activity android:name=".activity.CursorZhengDing"/><!--个人中心    课程征订-->
+        <activity android:name=".activity.MyJiFen"/><!--个人中心    积分商城-->
+        <activity android:name=".activity.MyTest"/><!--个人中心    考试中心-->
+        <activity android:name=".activity.ZuZhiAndSchool"/><!--个人中心    组织与学校-->
+        <activity android:name=".activity.Help"/><!--个人中心    帮助与反馈-->
+        <activity android:name=".activity.Setting"/><!--个人中心    设置-->
+        <activity android:name=".activity.AboutZX" /><!--个人中心    关于中仕-->
+        <activity android:name=".activity.WoYaoZhengDing"/><!--个人中心 -课程征订-我要征订页面-->
+        <activity android:name=".activity.ZhengDingMessage"/>
+        <activity android:name=".activity.HelpXiangqing"/><!--个人中心  -帮助与反馈  -详情页面-->
 
 
         <activity android:name=".activity.UserNicknameActivity"/>
@@ -79,14 +88,17 @@
         <!--搜索页面-->
         <activity android:name=".activity.SearchActivity" />
         <!--视频播放-->
-        <activity android:name=".activity.VideoPlayActivity" />
+        <activity
+            android:name=".activity.VideoPlayActivity"
+            android:theme="@style/Theme.PageIndicatorDefaults" />
         <!--音频中心页面-->
         <activity android:name=".activity.AudioCenterDetailActivity" />
         <!--文章详情页面-->
         <activity android:name=".activity.ArticleDetailActivity" />
         <!--读书详情-->
         <activity android:name=".activity.BookDetailActivity" />
-
+        <!--读书目录-->
+        <activity android:name=".activity.BookCatalogActivity"/>
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"

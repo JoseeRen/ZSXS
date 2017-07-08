@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout style="@style/usercenter_header_llbkg">
+
+        <ImageView
+            android:id="@+id/helpxiangqing_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            style="@style/usercenter_header_title"
+            android:text="帮助与反馈" />
+    </LinearLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/help_xiangqing"
+        android:background="#fff">
+
+    </WebView>
+
+</LinearLayout>
