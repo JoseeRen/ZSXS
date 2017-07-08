@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.bean.CourseBean;
 import com.ryw.zsxs.bean.CourseListBean;
 import com.ryw.zsxs.bean.GetZTShow;
 import com.ryw.zsxs.utils.SpUtils;
@@ -36,7 +37,7 @@ public class T20172Activity extends BaseActivity {
     ListView home20172List;
     @BindView(R.id.home_2017_back)
     TextView home2017Back;
-    private List<GetZTShow.CourseBean> list;
+    private List<CourseBean> list;
     private GetZTShow getZTShowBean;
 
     @Override
@@ -77,12 +78,12 @@ public class T20172Activity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //历史记录存储
                 String string = SpUtils.getString(mContext, Constant.HISTORYRECORD);
-                if (!string.contains(list.get(i).getKc_id())) {
+                if (!string.contains(getZTShowBean.getCourse().get(i).getKc_id())) {
                     SpUtils.putString(mContext, Constant.HISTORYRECORD, string + getZTShowBean.getCourse().get(i).getKc_id() + ",");
                 }
                 //准备跳转页面   需要kc_id  Kc_types
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("data", list.get(i));
+                bundle.putSerializable("data", getZTShowBean.getCourse().get(i));
                 startActivity(VideoPlayActivity.class, bundle);
             }
         });

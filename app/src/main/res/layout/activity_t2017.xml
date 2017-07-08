@@ -20,8 +20,7 @@
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
+        android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -33,14 +32,13 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:background="@mipmap/huandengpian" />
-
-            <ListView
+            <com.ryw.zsxs.view.MyListview
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:id="@+id/home_20172_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </ListView>
+    </com.ryw.zsxs.view.MyListview>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

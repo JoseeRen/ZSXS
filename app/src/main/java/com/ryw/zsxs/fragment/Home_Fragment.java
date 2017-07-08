@@ -368,9 +368,9 @@ public class Home_Fragment extends BaseFragment {
     /**
      * 这代码留着  等界面看不见的时候停止发消息 让轮播图停下来
      */
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        handler.removeCallbacksAndMessages(null);
-//    }
+   @Override
+   public void onPause() {
+       super.onPause();
+      handler.removeCallbacksAndMessages(null);
+  }
 }

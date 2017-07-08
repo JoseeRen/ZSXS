@@ -3,6 +3,8 @@ package com.ryw.zsxs.bean;
 import java.io.Serializable;
 import java.util.List;
 
+
+
 /**
  * Created by shishaoyou on 2017/6/28.
  */
@@ -63,71 +65,6 @@ public class GetZTShow implements Serializable {
         this.Course = Course;
     }
 
-    public static class CourseBean implements Serializable {
 
 
-        private String kc_id;
-        private String title;
-        private String img;
-        private String info;
-        private int money;
-        private int keshi;
-        private int hot;
-
-        public String getKc_id() {
-            return kc_id;
-        }
-
-        public void setKc_id(String kc_id) {
-            this.kc_id = kc_id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-
-        public void setInfo(String info) {
-            this.info = info;
-        }
-
-        public int getMoney() {
-            return money;
-        }
-
-        public void setMoney(int money) {
-            this.money = money;
-        }
-
-        public int getKeshi() {
-            return keshi;
-        }
-
-        public void setKeshi(int keshi) {
-            this.keshi = keshi;
-        }
-
-        public int getHot() {
-            return hot;
-        }
-
-        public void setHot(int hot) {
-            this.hot = hot;
-        }
-    }
 }

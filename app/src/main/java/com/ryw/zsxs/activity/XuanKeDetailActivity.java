@@ -321,7 +321,7 @@ public class XuanKeDetailActivity extends BaseActivity {
                 //准备跳转页面   需要kc_id  Kc_types
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", courseListBean.getCourse().get(i-1));
-                Log.e(TAG, "onItemClick:kcID "+courseListBean.getCourse().get(i-1).getKc_id() );
+              //  Log.e(TAG, "onItemClick:kcID "+courseListBean.getCourse().get(i-1).getKc_id() );
                 switch (types) {
                     case 0:
                         // tvXuankedetailTitle.setText("视频中心");
